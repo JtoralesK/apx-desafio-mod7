@@ -64,9 +64,7 @@ class Report extends HTMLElement{
    
       <div class="mapa">
       <input name="busqueda" type="search" required />
-      <button>Buscar</button>
       <div id="map" style="width: 250px; height: 200px"></div>
-     
       <button class="guardar">Reportar</button>
         </div> 
     </form>

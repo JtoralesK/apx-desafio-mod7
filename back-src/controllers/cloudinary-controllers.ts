@@ -27,8 +27,10 @@ export async function updateProfile(userId:number,data){
     
     
   index.saveObject({
-   rubro: report.get("petName"),
-   title: report.get("description"),
+   petName: report.get("petName"),
+   description: report.get("description"),
+   url: report.get("url"),
+   cellphone: report.get("cellphone"),
    objectID: report.get("id"),
    "_geoloc": {
      "lat":report.get("lat"),

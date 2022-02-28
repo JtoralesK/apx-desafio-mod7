@@ -74,7 +74,7 @@ export class Headeer extends HTMLElement{
         console.log(3);
         
         if(verificador==false){
-         Router.go("/busqueda")
+         Router.go("/cerca")
         }else{
          Router.go("/login")
         }

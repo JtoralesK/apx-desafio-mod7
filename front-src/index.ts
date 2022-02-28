@@ -4,6 +4,7 @@ import "./pages/home/home"
 import "./pages/login/login"
 import "./pages/reporta/reportaMascota"
 import "./pages/mascotasReportadas/mascotasReportadas"
+import "./pages/mascotasCerca/cercaMascota"
 //components
 import "./components/header/header"
 import "./components/header2"

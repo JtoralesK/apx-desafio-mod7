@@ -1,4 +1,6 @@
-import { sequelize } from "../db/connection";
+import "dotenv/config"
+// import "./view/index";
+import { sequelize } from "./connection";
 import "../model"
 
 sequelize.sync({ force: true }).then((res) => console.log(res));

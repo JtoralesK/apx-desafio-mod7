@@ -4,12 +4,6 @@ import { index } from "../lib/algolia/algolia"
 import { User,Auth,Report } from "../model";
 import * as crypto from"crypto"
 import * as jwt from"jsonwebtoken"
-// function getSHA256ofJSON (text:string){
-//     return crypto.createHash('sha256').update(text).digest('hex')
-//   }
-  const secretWord = 'lallalalalal12345ldf3'
-
-
 
 
 export async function TodosLosReportes(){
@@ -19,7 +13,6 @@ export async function TodosLosReportes(){
     return data
 }
 export async function unReporte(number:number){
-  console.log(number);
   
     const usersReports = await Report.findAll({where:{
       user_id:number,
@@ -30,6 +23,7 @@ export async function unReporte(number:number){
   
 
 }
+
 
 
 
@@ -73,8 +67,19 @@ export async function reportesDeUnUsuario(id:number){
     const usersReports = await Report.findAll({where:{
       userId:id,
     },
-    include:[User]
+    // include:[User]
     })
      return usersReports
     
 }
+export async function reporteCerca(lng:number,lat:number){
+ 
+  const { hits } = await index.search("", {
+    aroundLatLng:[lat,lng].join(","),
+    aroundRadius:10000
+  })
+
+ return hits
+  
+}
+

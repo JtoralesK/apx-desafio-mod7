@@ -31,7 +31,8 @@ const state={
        me:{
         token:"",
         reports:[],
-       }
+       },
+       reportsCercanos:[]
     
       },
       listeners: [],
@@ -270,6 +271,19 @@ const state={
         body:JSON.stringify({
           petName,description,location,lng,lat,cellphone,url
         })
+      }).then((r)=>{return r.json()}).then((e)=>
+      {
+        console.log(e);
+      })
+    },
+    reportesCerca(){
+      const cs = this.getState()
+    
+      
+      fetch(API_BASE_URL+`/reportes-cerca-de?lat=${cs.location.lat}&lng=${cs.location.lng}`,{
+        headers:{
+          "content-type":"application/json",
+        }
       }).then((r)=>{return r.json()}).then((e)=>
       {
         console.log(e);

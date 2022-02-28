@@ -5,7 +5,7 @@ import *as cors from"cors"
 import * as crypto from"crypto"
 import { colocaDatos, me,meConfirm } from "../controllers/users-controllers"
 import {updateProfile } from"../controllers/cloudinary-controllers"
-import {  TodosLosReportes, unReporte,actulizaReporte,reportesDeUnUsuario} from "../controllers/algolia-controllers"
+import {  TodosLosReportes, unReporte,actulizaReporte,reportesDeUnUsuario,reporteCerca} from "../controllers/algolia-controllers"
 import * as jwt from"jsonwebtoken"
 import * as path from "path"
 import { index } from "../lib/algolia/algolia"
@@ -83,6 +83,7 @@ app.get("/me/reportes",authMiddelwire,async(req,res)=>{
   const data=await unReporte(req._user.id)
   res.json(data)
  })
+ 
 
  app.put("/reportes/:id",async(req,res)=>{
   if(req.body){
@@ -95,17 +96,13 @@ app.get("/me/reportes",authMiddelwire,async(req,res)=>{
  app.get("/reportes-cerca-de",async(req,res)=>{
   const {lat} = req.query
   const {lng} = req.query
+console.log(lat,lng);
 
-
-  const { hits } = await index.search("", {
-      aroundLatLng:[lat,lng].join(","),
-      aroundRadius:10000
-    })
-  
-    res.json(hits)
-
+  const cerca = await reporteCerca(lng,lat)
+  res.json(cerca)
  })
- 
+
+
 
  //cloudinary
 
