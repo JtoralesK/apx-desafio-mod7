@@ -74,7 +74,11 @@ export class Headeer extends HTMLElement{
         console.log(3);
         
         if(verificador==false){
-         Router.go("/cerca")
+          state.reportesCerca(()=>{
+            Router.go("/cerca")
+
+           })
+
         }else{
          Router.go("/login")
         }
@@ -153,10 +157,17 @@ export class Headeer extends HTMLElement{
   width: 100%;
   margin-left: -100%;
   transition:all 0.5s;
-  position: absolute;
   z-index: 100;
+  position: fixed
 
 }
+@media (min-width:678px){
+ 
+.menu {
+  position: inherit;
+
+}
+ }
 .menu_link {
   padding: 20px;
   color: white;

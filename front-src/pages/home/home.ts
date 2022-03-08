@@ -19,8 +19,8 @@ class Home extends HTMLElement{
      
      <section class="section_principal">
     <div class="section_whoAre">
-    <h1>¿Quienés somos?<h1>
-    <p>Somos rescatistas que queremos facilitar la búsqueda de una mascota perdida o la de los humanos de la mascota encontrada. 
+    <h1 class="title">¿Quienés somos?<h1>
+    <p class="parrafo_principal">Somos rescatistas que queremos facilitar la búsqueda de una mascota perdida o la de los humanos de la mascota encontrada. 
     Si nada de eso funciona podrás ponerla en adopción o llenarte de amor con una de ellas.</p>
     </div>
 
@@ -48,25 +48,36 @@ class Home extends HTMLElement{
      background-color:#2E8B57;
      width: 100vw;
      height:100vh;
+    
+   }
+  
+   .title{
 
-   }
-   .contenedor_huella{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-   }
-   .huella{
-     width:100px;
-   }
-   .page_home{
-     display:none;
    }
    .section_principal{
      width:100%;
-     height:1200px;
+     height:100vh;
      background-color:white;
    }
+   @media (min-width:678px){
+    .section_principal{
+     display:flex;
+     flex-direction: row;
+     align-items: revert;
+     padding: 100px;
+    }
+    
+   .title{
+     font-size:52px;
+     margin:0;
+     font-family: 'Baloo Thambi 2', cursive;
+
+  }
+  .parrafo_principal{
+    font-family: 'Baloo Thambi 2', cursive;
+
+  }
+  }
    .section_perro{
     height:150px;
     width:100%;
@@ -77,9 +88,14 @@ class Home extends HTMLElement{
   justify-content: center;
   align-items: center;  
   text-align:center;
-  padding:50px;
+  padding:0 50px 50px;
    }
-
+   @media (min-width:678px){
+    .section_whoAre{ 
+      text-align:justify;
+      padding:0 50px 50px;
+       }
+  }
    .servicios_content{
     width: 100%;
     margin: 0 auto;

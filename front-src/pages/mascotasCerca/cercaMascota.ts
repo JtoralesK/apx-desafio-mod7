@@ -7,23 +7,24 @@ class MascotasCercanas extends HTMLElement{
       const elemento:any = document.querySelector("#results-item-template")
       const mascotasReportadas:HTMLElement = document.querySelector(".results")      
       const cs = state.getState()
-      const reports = cs.me.reports
-      state.reportesCerca()
-    //   if(reports==[]){
-    //     console.log("no hay");
-        
-    //   }else{
-    //     reports.map((e)=>{
-        
-    //       const tituloel= elemento.content.querySelector(".title_clone")
-    //       const img = elemento.content.querySelector(".src_clone")
-    //       tituloel.textContent= e.petName
-    //       img.src=e.url
-    //       const clone = document.importNode(elemento.content, true)
-    //       mascotasReportadas.appendChild(clone)
-            
-    //       })
-    //   }
+        const reports = cs.me.reportsCercanos
+        if(reports==[]){
+          console.log("no hay");
+          
+        }else{
+          reports.map((e)=>{
+          
+            const tituloel= elemento.content.querySelector(".title_clone")
+            const img = elemento.content.querySelector(".src_clone")
+            tituloel.textContent= e.petName
+            img.src=e.url
+            const clone = document.importNode(elemento.content, true)
+            mascotasReportadas.appendChild(clone)
+              
+            })
+        }
+     
+      
       
    }
 
@@ -31,9 +32,8 @@ class MascotasCercanas extends HTMLElement{
        const style = document.createElement("style")
 
       this.innerHTML=`
-
-     <div class="results">
       <h1 class="title_principal">Mascotas cercanas</h1>
+     <div class="results">
       <template id="results-item-template" class="servicios_content">
       <div class="servicios_card">
       <img class="src_clone"  alt="">
@@ -50,8 +50,17 @@ class MascotasCercanas extends HTMLElement{
       margin:0;
 
   }
+  
   .title_principal{
     margin:20px;
+    text-align:center;
+  }
+  @media (min-width:678px){
+   .results{
+    display:flex;
+    flex-direction: row;
+   
+   }
   }
 .content-h3-title {
   margin: 0px;

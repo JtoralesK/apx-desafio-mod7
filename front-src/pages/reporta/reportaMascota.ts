@@ -50,7 +50,7 @@ class Report extends HTMLElement{
       <h1>Mi reporte</h1>
       <label >
           <h2>Nombre de la mascota</h2>
-          <input type="text" class="input" name="name">
+          <input type="text" class="input inputName" name="name">
       </label>
       <label >
           <h2>Describilo</h2>
@@ -100,6 +100,7 @@ class Report extends HTMLElement{
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap:10px;
    }
    .guardar{
      width:90%;
@@ -108,7 +109,9 @@ class Report extends HTMLElement{
      justify-content: center;
 
    }
-  
+  .inputName{
+    text-align:center;
+  }
 
     `
    

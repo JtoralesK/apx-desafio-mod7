@@ -31,8 +31,9 @@ const state={
        me:{
         token:"",
         reports:[],
+        reportsCercanos:[]
        },
-       reportsCercanos:[]
+     
     
       },
       listeners: [],
@@ -276,7 +277,7 @@ const state={
         console.log(e);
       })
     },
-    reportesCerca(){
+    reportesCerca(callback){
       const cs = this.getState()
     
       
@@ -286,7 +287,9 @@ const state={
         }
       }).then((r)=>{return r.json()}).then((e)=>
       {
-        console.log(e);
+        cs.me.reportsCercanos=e
+        this.setState(cs)  
+          callback()  
       })
     },
     //user location

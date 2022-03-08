@@ -32,9 +32,8 @@ class MascotasReportadas extends HTMLElement{
        const style = document.createElement("style")
 
       this.innerHTML=`
-
-     <div class="results">
       <h1 class="title_principal">Mis Mascotas Reportadas</h1>
+     <div class="results">
       <template id="results-item-template" class="servicios_content">
       <div class="servicios_card">
       <img class="src_clone"  alt="">
@@ -53,6 +52,14 @@ class MascotasReportadas extends HTMLElement{
   }
   .title_principal{
     margin:20px;
+    text-align:center;
+  }
+  @media (min-width:678px){
+   .results{
+    display:flex;
+    flex-direction: row;
+   
+   }
   }
 .content-h3-title {
   margin: 0px;
