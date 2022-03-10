@@ -1,5 +1,5 @@
 type Mode="iniciado" | "registrado"
-type Page="mascotasReportadas" | "reportarMascotas" | "mascotasCercaTuyo"
+type Page="/cerca" | "/report" | "/mascotas"
 type Local="token" | "reports" 
 
 const API_BASE_URL= process.env.DB_HOST
@@ -13,7 +13,7 @@ const state={
             password:"",
             mode:"",
             token:"",
-            created:false
+            created:""
         },
         location:{
           lng:"",
@@ -31,8 +31,12 @@ const state={
        me:{
         token:"",
         reports:[],
-        reportsCercanos:[]
+        reportsCercanos:[],
+        page:""
        },
+       error:{
+         usuario:""
+       }
      
     
       },
@@ -68,6 +72,11 @@ const state={
     
       subscribe(cb: (any) => any) {
         this.listeners.push(cb);
+      },setPage(type:Page,callback){
+        let cs = this.getState()
+        cs.me.page=type
+        this.setState(cs) 
+        callback()
       },
       setModeRegistoUser(callback){
         let cs = this.getState()
@@ -75,6 +84,11 @@ const state={
         this.setState(cs) 
         callback()
 
+      },
+      setError(){
+        let cs = this.getState()
+        cs.error.usuario = ""
+        this.setState(cs) 
       },
       setReportLocation(lng:string,lat:string){
         let cs = this.getState()
@@ -102,11 +116,12 @@ const state={
         this.setState(data) 
 
       },
-      dataParaCloudinary(name:string,description:string,img:string,callback){
+      dataParaCloudinary(name:string,description:string,img:string,location:string,callback){
         let data = this.getState()
         data.report.name = name
         data.report.description =description
         data.report.img =img
+        data.report.location=location
         this.setState(data) 
         callback()
       },
@@ -178,8 +193,16 @@ const state={
 
         }).then(response => response.json())
         .then(data => {
-          cs.dataRegistro.fullname=data.fullname 
-          cs.dataRegistro.created=data.createdAt
+          if(data.fullname && data.createdAt){
+            console.log(data.fullname && data.createdAt);
+            cs.dataRegistro.fullname=data.fullname 
+            cs.dataRegistro.created=data.createdAt
+          }if(data.error){
+            console.log(data.error);
+            cs.error.usuario="error"
+
+          }
+          
 
           
           this.setState(cs)  

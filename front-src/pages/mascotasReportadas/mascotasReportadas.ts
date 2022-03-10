@@ -17,7 +17,9 @@ class MascotasReportadas extends HTMLElement{
         reports.map((e)=>{
         
           const tituloel= elemento.content.querySelector(".title_clone")
+          const location= elemento.content.querySelector(".location_clone")
           const img = elemento.content.querySelector(".src_clone")
+          location.textContent= e.location
           tituloel.textContent= e.petName
           img.src=e.url
           const clone = document.importNode(elemento.content, true)
@@ -38,6 +40,8 @@ class MascotasReportadas extends HTMLElement{
       <div class="servicios_card">
       <img class="src_clone"  alt="">
       <h1 class="title_clone"></h1>
+      <h3 class="location_clone"></h3>
+
       </div>
        </template>
      </div>

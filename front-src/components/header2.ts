@@ -47,7 +47,9 @@ export class Headeer extends HTMLElement{
             Router.go("/mascotas")
           })
          }else{
-          Router.go("/login")
+          state.setPage("/mascotas",()=>{
+            Router.go("/login")
+          })
          }
       })
       
@@ -62,7 +64,9 @@ export class Headeer extends HTMLElement{
         if(verificador==false){
          Router.go("/report")
         }else{
-         Router.go("/login")
+          state.setPage("/report",()=>{
+            Router.go("/login")
+          })
         }
 
       })
@@ -80,7 +84,9 @@ export class Headeer extends HTMLElement{
            })
 
         }else{
-         Router.go("/login")
+          state.setPage("/cerca",()=>{
+            Router.go("/login")
+          })
         }
 
       })

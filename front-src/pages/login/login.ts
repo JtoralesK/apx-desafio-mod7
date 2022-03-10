@@ -105,6 +105,7 @@ const caja_trasera_register:HTMLElement  = document.querySelector(".caja__traser
    userUbication(){
     console.log(this.mode);
     const cs = state.getState()
+    const typePage = cs.me.page
     if(cs.dataRegistro.mode == "registrado"){
         console.log("registrado");
         state.setModeRegistoUser(()=>{
@@ -112,7 +113,7 @@ const caja_trasera_register:HTMLElement  = document.querySelector(".caja__traser
                  state.obtieneToken(()=>{
                      state.meLocalstorage()
                     state.obtieneMiData(()=>{
-                        Router.go("/busqueda")
+                        Router.go(typePage)
                     })
                 })
                        })            
@@ -124,7 +125,17 @@ const caja_trasera_register:HTMLElement  = document.querySelector(".caja__traser
                  state.obtieneToken(()=>{
                     state.meLocalstorage()
                     state.obtieneMiData(()=>{
-                        Router.go("/busqueda")
+                            const verificador = cs.error.usuario
+                            
+                            if(verificador=="error"){
+                                const error:HTMLElement= document.querySelector(".error")
+                                error.style.display="initial"
+                                state.setError()
+                            }else{
+                                Router.go(typePage)
+
+                            }
+
 
                     })
 
@@ -162,7 +173,8 @@ const caja_trasera_register:HTMLElement  = document.querySelector(".caja__traser
               <form class="formulario__login">
                   <h2>Iniciar Sesión</h2>
                   <input type="text" placeholder="Correo Electronico" name="email">
-                  <input type="password" placeholder="Contraseña" name="password">
+                  <input class="input_password" type="password" placeholder="Contraseña" name="password">
+                  <h3 class="error">Contraseña o correo incorrecto<h3>
                   <button>Entrar</button>
               </form>
 
@@ -186,6 +198,13 @@ const caja_trasera_register:HTMLElement  = document.querySelector(".caja__traser
       background-repeat: no-repeat;
       background-position: center;
       background-attachment: fixed;
+  }
+  .error{
+      color:red;
+      display:none;
+  }
+  .input_password{
+    margin-bottom:10px;
   }
   
   .main{

@@ -28,7 +28,7 @@ class Report extends HTMLElement{
             const desciption = target.bio.value
             const loca = target.busqueda.value
        
-            state.dataParaCloudinary(petName,desciption,imgDataUrl,()=>{
+            state.dataParaCloudinary(petName,desciption,imgDataUrl,loca,()=>{
               state.makeToReport()
  
             })

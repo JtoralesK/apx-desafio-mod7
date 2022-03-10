@@ -11,7 +11,7 @@ import * as path from "path"
 import { index } from "../lib/algolia/algolia"
 
 
-const port = process.env.PORT || 3005
+const port = process.env.PORT //3005
 console.log(process.env.PORT,process.env.DB_HOST);
 
 const app = express()
