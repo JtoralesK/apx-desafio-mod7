@@ -15,9 +15,12 @@ class MascotasReportadas extends HTMLElement{
         
       }else{
         reports.map((e)=>{
-        
+          console.log(e.location);
+
           const tituloel= elemento.content.querySelector(".title_clone")
           const location= elemento.content.querySelector(".location_clone")
+          console.log(location);
+          
           const img = elemento.content.querySelector(".src_clone")
           location.textContent= e.location
           tituloel.textContent= e.petName
@@ -39,8 +42,9 @@ class MascotasReportadas extends HTMLElement{
       <template id="results-item-template" class="servicios_content">
       <div class="servicios_card">
       <img class="src_clone"  alt="">
-      <h1 class="title_clone"></h1>
       <h3 class="location_clone"></h3>
+
+      <h1 class="title_clone"></h1>
 
       </div>
        </template>
@@ -104,9 +108,16 @@ z-index: 1;
 .title_clone {
   font-weight: 600;
   font-size:32px;
-  margin: 15px 0;
   font-family: 'Baloo Thambi 2', cursive;
   text-align:left;
+}
+.location_clone{
+  font-weight: 400;
+  font-size:16px;
+  margin: 5px 0;
+  font-family: 'Baloo Thambi 2', cursive;
+  text-align:right;
+}
 }
 .servicios_card-p {
   padding: 0 1rem;

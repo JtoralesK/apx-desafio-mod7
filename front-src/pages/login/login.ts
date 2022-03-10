@@ -33,6 +33,7 @@ const caja_trasera_register:HTMLElement  = document.querySelector(".caja__traser
 
 
     function iniciarSesion(){
+        console.log(23);
         if (window.innerWidth > 850){
             formulario_login.style.display = "block";
             contenedor_login_register.style.left = "10px";
@@ -49,6 +50,7 @@ const caja_trasera_register:HTMLElement  = document.querySelector(".caja__traser
     }
 
     function register(){
+        console.log(2412)
         if (window.innerWidth > 850){
             formulario_register.style.display = "block";
             contenedor_login_register.style.left = "410px";
@@ -113,7 +115,20 @@ const caja_trasera_register:HTMLElement  = document.querySelector(".caja__traser
                  state.obtieneToken(()=>{
                      state.meLocalstorage()
                     state.obtieneMiData(()=>{
-                        Router.go(typePage)
+                        if(typePage=="/mascotas"){
+                            state.obtieneMisReportes(()=>{
+                                Router.go("/mascotas")
+                              })
+                        }if(typePage=="/report"){
+                            Router.go("/report")
+
+                        }if(typePage=="/cerca"){
+                            state.reportesCerca(()=>{
+                                Router.go("/cerca")
+                    
+                               })
+
+                        }
                     })
                 })
                        })            
@@ -132,7 +147,21 @@ const caja_trasera_register:HTMLElement  = document.querySelector(".caja__traser
                                 error.style.display="initial"
                                 state.setError()
                             }else{
-                                Router.go(typePage)
+                                if(typePage=="/mascotas"){
+                                    state.obtieneMisReportes(()=>{
+                                        Router.go("/mascotas")
+                                      })
+                                }if(typePage=="/report"){
+                                    Router.go("/report")
+
+                                }if(typePage=="/cerca"){
+                                    state.reportesCerca(()=>{
+                                        Router.go("/cerca")
+                            
+                                       })
+
+                                }
+                        
 
                             }
 
@@ -151,45 +180,40 @@ const caja_trasera_register:HTMLElement  = document.querySelector(".caja__traser
     
       this.innerHTML=`
       
-      <main class="main">
+      
+    <div class="contenedor__todo">
+    <div class="caja__trasera">
+        <div class="caja__trasera-login">
+            <h3>¿Ya tienes una cuenta?</h3>
+            <p>Inicia sesión para entrar en la página</p>
+            <button class="btn__iniciar-sesion">Iniciar Sesión</button>
+        </div>
+        <div class="caja__trasera-register">
+            <h3>¿Aún no tienes una cuenta?</h3>
+            <p>Regístrate para que puedas iniciar sesión</p>
+            <button class="btn__registrarse">Regístrarse</button>
+        </div>
+    </div>
 
-      <div class="contenedor__todo">
-          <div class="caja__trasera">
-              <div class="caja__trasera-login">
-                  <h3>¿Ya tienes una cuenta?</h3>
-                  <p>Inicia sesión para entrar en la página</p>
-                  <button class="btn__iniciar-sesion">Iniciar Sesión</button>
-              </div>
-              <div class="caja__trasera-register">
-                  <h3>¿Aún no tienes una cuenta?</h3>
-                  <p>Regístrate para que puedas iniciar sesión</p>
-                  <button class="btn__registrarse">Regístrarse</button>
-              </div>
-          </div>
+    <div class="contenedor__login-register">
+        
+        <form class="formulario__login">
+            <h2>Iniciar Sesión</h2>
+            <h3 class="error">Contraseña o correo incorrecto</h3>
+            <input type="text" placeholder="Correo Electronico" name="email">
+            <input class="input_password" type="password" placeholder="Contraseña" name="password">
+            <button>Entrar</button>
+        </form>
 
-          <!--Formulario de Login y registro-->
-          <div class="contenedor__login-register">
-              <!--Login-->
-              <form class="formulario__login">
-                  <h2>Iniciar Sesión</h2>
-                  <input type="text" placeholder="Correo Electronico" name="email">
-                  <input class="input_password" type="password" placeholder="Contraseña" name="password">
-                  <h3 class="error">Contraseña o correo incorrecto<h3>
-                  <button>Entrar</button>
-              </form>
-
-              <!--Register-->
-              <form  class="formulario__register">
-                  <h2>Regístrarse</h2>
-                  <input type="text" placeholder="Nombre completo" name="nombreCompleto">
-                  <input type="text" placeholder="Correo Electronico" name="correoElectronico">
-                  <input type="password" placeholder="Contraseña" name="contraseña">
-                  <button>Regístrarse</button>
-              </form>
-          </div>
-      </div>
-
-  </main>
+        <form  class="formulario__register">
+            <h2>Regístrarse</h2>
+            <input type="text" placeholder="Nombre completo" name="nombreCompleto">
+            <input type="text" placeholder="Correo Electronico" name="correoElectronico">
+            <input type="password" placeholder="Contraseña" name="contraseña">
+            <button>Regístrarse</button>
+        </form>
+    </div>
+</div>
       `
     style.innerHTML=`
     body{
@@ -329,7 +353,7 @@ const caja_trasera_register:HTMLElement  = document.querySelector(".caja__traser
       opacity: 1;
       display: block;
   }
-  .formulario__register{
+  .formulario__register,.caja__trasera-login{
       display: none;
   }
   

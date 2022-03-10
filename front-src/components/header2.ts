@@ -79,6 +79,8 @@ export class Headeer extends HTMLElement{
         
         if(verificador==false){
           state.reportesCerca(()=>{
+            console.log("de un lado  aotros");
+            
             Router.go("/cerca")
 
            })
