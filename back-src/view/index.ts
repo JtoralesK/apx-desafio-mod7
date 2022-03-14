@@ -117,7 +117,7 @@ console.log(lat,lng);
   }
 })
 app.get("*", (req, res) => {
-  const rutaRelativa = path.resolve(__dirname, "../front-src/index.html");
+  const rutaRelativa = path.resolve(__dirname, "../../front-src/index.html");
   console.log(rutaRelativa);
   
   res.sendFile(rutaRelativa)
