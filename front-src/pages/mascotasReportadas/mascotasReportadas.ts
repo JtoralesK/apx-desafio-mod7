@@ -9,10 +9,14 @@ class MascotasReportadas extends HTMLElement{
       const mascotasReportadas:HTMLElement = document.querySelector(".results")      
       const cs = state.getState()
       const reports = cs.me.reports
+      console.log(reports[0]);
       
-      if(reports==[]){
+      
+      if(reports[0]==undefined){
         console.log("no hay");
-        
+        const sinMascotas:HTMLElement = document.querySelector(".sinMascotas")   
+        sinMascotas.style.display="initial"   
+
       }else{
         reports.map((e)=>{
           console.log(e.location);
@@ -38,6 +42,8 @@ class MascotasReportadas extends HTMLElement{
 
       this.innerHTML=`
       <h1 class="title_principal">Mis Mascotas Reportadas</h1>
+      <h2 class="sinMascotas">No reportaste ninguna mascota</h2>
+
      <div class="results">
       <template id="results-item-template" class="servicios_content">
       <div class="servicios_card">
@@ -58,6 +64,10 @@ class MascotasReportadas extends HTMLElement{
       margin:0;
 
   }
+  .sinMascotas{
+    display:none;
+    color:red;
+  }
   .title_principal{
     margin:20px;
     text-align:center;
@@ -66,7 +76,8 @@ class MascotasReportadas extends HTMLElement{
    .results{
     display:flex;
     flex-direction: row;
-   
+    flex-wrap: wrap;
+    padding:20px;
    }
   }
 .content-h3-title {

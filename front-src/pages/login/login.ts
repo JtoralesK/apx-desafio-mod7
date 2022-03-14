@@ -128,6 +128,9 @@ const caja_trasera_register:HTMLElement  = document.querySelector(".caja__traser
                     
                                })
 
+                        }if(typePage=="/perfil"){
+                            Router.go("/perfil")
+
                         }
                     })
                 })
@@ -157,8 +160,11 @@ const caja_trasera_register:HTMLElement  = document.querySelector(".caja__traser
                                 }if(typePage=="/cerca"){
                                     state.reportesCerca(()=>{
                                         Router.go("/cerca")
-                            
                                        })
+                                }if(typePage=="/perfil"){
+                                    console.log(cs.dataRegistro,"wq");
+                                    Router.go("/perfil")
+                                    
 
                                 }
                         
@@ -353,7 +359,7 @@ const caja_trasera_register:HTMLElement  = document.querySelector(".caja__traser
       opacity: 1;
       display: block;
   }
-  .formulario__register,.caja__trasera-login{
+  .formulario__register{
       display: none;
   }
   
@@ -389,6 +395,9 @@ const caja_trasera_register:HTMLElement  = document.querySelector(".caja__traser
       .contenedor__login-register form{
           position: relative;
       }
+      .caja__trasera-login{
+        display: none;
+    }
   }
    
   

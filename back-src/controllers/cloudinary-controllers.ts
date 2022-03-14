@@ -2,9 +2,10 @@ import { cloudinary } from "../lib/cloudinary/connection"
 import { index } from "../lib/algolia/algolia"
 import { User,Auth,Report } from "../model";
 export async function updateProfile(userId:number,data){
-    console.log(data);
     
-    if(data.url){
+    if(data.url && data.lat!=false && data.lng!=false ){
+      console.log("entro");
+      
        const image = await cloudinary.uploader.upload(data.url,{
             resource_type:"image",
             discard_original_filename:true,
@@ -30,6 +31,7 @@ export async function updateProfile(userId:number,data){
    petName: report.get("petName"),
    description: report.get("description"),
    url: report.get("url"),
+   location:report.get("location"),
    cellphone: report.get("cellphone"),
    objectID: report.get("id"),
    "_geoloc": {
@@ -43,6 +45,10 @@ export async function updateProfile(userId:number,data){
    
  })
  return  report
+    }else{
+      console.log("no entro");
+      
+      return {error:false}
     }
     
 }

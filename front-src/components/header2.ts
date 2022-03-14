@@ -18,6 +18,8 @@ export class Headeer extends HTMLElement{
     const mascotasReportadas = document.querySelector(".mascotasReportadas")
     const reportarMascotas = document.querySelector(".reportarMascotas")
     const mascotasCercaTuyo = document.querySelector(".MascotasCercaTuyo")
+    const perfil = document.querySelector(".perfil")
+
 
     
 
@@ -92,10 +94,25 @@ export class Headeer extends HTMLElement{
         }
 
       })
-
-    
      })
-    
+     perfil.addEventListener("click",()=>{
+      state.confirmaUser(()=>{
+        const verificador =cs.dataRegistro.created
+        console.log(4);
+        
+        if(verificador==false){
+          state.obtieneMiData(()=>{
+            Router.go("/perfil")
+          })
+
+        }else{
+          state.setPage("/perfil",()=>{
+            Router.go("/login")
+          })
+        }
+
+      })
+    })
    }
 
    render(){
@@ -117,7 +134,7 @@ export class Headeer extends HTMLElement{
    
        <ul class="menu">
            <li class="items"><a class="menu_link inicio">inicio</a></li>
-           <li class="items"><a class="menu_link" href="#">nosotros</a></li>
+           <li class="items"><a class="menu_link perfil" href="#">perfil</a></li>
            <li class="container_submenu items">
              <a href="#" class="menu_link submenuMascotas" >Mascotas <i class="fas fa-chevron-down"></i></a>
              <ul class="submenu">

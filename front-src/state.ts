@@ -1,5 +1,7 @@
+import { Router } from "@vaadin/router"
+
 type Mode="iniciado" | "registrado"
-type Page="/cerca" | "/report" | "/mascotas"
+type Page="/cerca" | "/report" | "/mascotas"| "/perfil"
 type Local="token" | "reports" 
 
 const API_BASE_URL= process.env.DB_HOST
@@ -25,8 +27,8 @@ const state={
         description:"",
         cellphone:"",
         url:"",
-        lng:"",
-        lat:""
+        lng:false,
+        lat:false
        },
        me:{
         token:"",
@@ -35,7 +37,8 @@ const state={
         page:""
        },
        error:{
-         usuario:""
+         usuario:"",
+         confirmarUbicacion:""
        }
      
     
@@ -72,7 +75,45 @@ const state={
     
       subscribe(cb: (any) => any) {
         this.listeners.push(cb);
-      },setPage(type:Page,callback){
+      },setCuenta(){
+        let data = this.getState()  
+        data.dataRegistro={
+          fullname:"",
+          email:"",
+          password:"",
+          mode:"",
+          token:"",
+          created:""
+      };
+      data.location={
+        lng:"",
+        lat:""
+      };
+      data.report={
+        petName:"",
+      location:"",
+      description:"",
+      cellphone:"",
+      url:"",
+      lng:"",
+      lat:""
+      };
+      data.me={
+        token:"",
+        reports:[],
+        reportsCercanos:[],
+        page:""
+      };
+      data.error={
+        usuario:""
+      };
+  
+        this.setState(data)
+
+        Router.go("/")
+      
+      },
+      setPage(type:Page,callback){
         let cs = this.getState()
         cs.me.page=type
         this.setState(cs) 
@@ -88,6 +129,10 @@ const state={
       setError(){
         let cs = this.getState()
         cs.error.usuario = ""
+        this.setState(cs) 
+      }, setErrorUbi(){
+        let cs = this.getState()
+        cs.error.confirmarUbicacion = ""
         this.setState(cs) 
       },
       setReportLocation(lng:string,lat:string){
@@ -196,6 +241,7 @@ const state={
           if(data.fullname && data.createdAt){
             console.log(data.fullname && data.createdAt);
             cs.dataRegistro.fullname=data.fullname 
+            cs.dataRegistro.email=data.email 
             cs.dataRegistro.created=data.createdAt
           }if(data.error){
             console.log(data.error);
@@ -234,6 +280,7 @@ const state={
         const description= cs.report.description 
         const lng = cs.report.lng
         const lat = cs.report.lat
+        
         const cellphone = 1124670573
         const url = cs.report.img 
         fetch(API_BASE_URL+"/reportes",{
@@ -275,13 +322,13 @@ const state={
 
       //cloudinary
 
-    makeToReport(){
+    makeToReport(callback){
       const cs = this.getState()
       const petName=  cs.report.name 
       const location = cs.report.location 
       const description= cs.report.description 
-      const lng = cs.location.lng
-      const lat = cs.location.lat
+      const lng = cs.report.lng
+      const lat = cs.report.lat
       const cellphone = 1124670573
       const url = cs.report.img 
     
@@ -298,6 +345,17 @@ const state={
       }).then((r)=>{return r.json()}).then((e)=>
       {
         console.log(e);
+        if(e.error){
+          cs.error.confirmarUbicacion=e.error
+          this.setState(cs)  
+
+        }else{
+          this.obtieneMisReportes(()=>{
+            
+  
+          })
+        }
+        callback()
       })
     },
     reportesCerca(callback){

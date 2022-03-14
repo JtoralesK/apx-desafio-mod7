@@ -18,18 +18,37 @@ class Report extends HTMLElement{
         });
   
         const reportarMascotas:HTMLElement = document.querySelector(".form")
+        const marcarLugar:HTMLElement = document.querySelector(".marcarLugar")
+        marcarLugar.addEventListener("click",(e)=>{
+          e.preventDefault()
+        })
        
         const cs = state.getState()
    
           reportarMascotas.addEventListener("submit",(e)=>{
             e.preventDefault()
+            const error:HTMLElement = document.querySelector(".error")
+            error.style.display="none"
             const target:any = e.target
             const petName = target.name.value
             const desciption = target.bio.value
             const loca = target.busqueda.value
-       
+            
+            const eje:HTMLElement = document.querySelector(".ejemplo")
+                eje.style.color="green"
             state.dataParaCloudinary(petName,desciption,imgDataUrl,loca,()=>{
-              state.makeToReport()
+              state.makeToReport(()=>{
+                if(cs.error.confirmarUbicacion==false){
+                  const error:HTMLElement = document.querySelector(".error")
+                  error.style.display="initial"
+                  
+                  state.setErrorUbi()
+
+                }else{
+                  Router.go("/mascotas")                
+
+                }
+              })
  
             })
         })
@@ -47,14 +66,14 @@ class Report extends HTMLElement{
 
       <form class="form">
       <div class="form_container">
-      <h1>Mi reporte</h1>
+      <h1 class="ejemplo">Mi reporte</h1>
       <label >
           <h2>Nombre de la mascota</h2>
-          <input type="text" class="input inputName" name="name">
+          <input type="text" class="input inputName" name="name" required>
       </label>
       <label >
           <h2>Describilo</h2>
-          <textarea name="bio" class="bio" ></textarea>
+          <textarea name="bio" class="bio" ></textarea >
       </label>
       <div class="img-div">
           <img class="prrofile-img">
@@ -63,10 +82,12 @@ class Report extends HTMLElement{
       </div>
    
       <div class="mapa">
-      <input name="busqueda" type="search" required />
+      <input class="busqueda" name="busqueda" type="search" required />
       <div id="map" style="width: 250px; height: 200px"></div>
-      <button class="guardar">Reportar</button>
+      <button class="marcarLugar">Confirmar Ubicación</button>
         </div> 
+        <h3 class="error">Falta confirmar ubicacion o subir imagen</h3>
+        <button class="guardar" >Reportar</button>
     </form>
 
      
@@ -77,7 +98,12 @@ class Report extends HTMLElement{
       margin:0;
 
   }
- 
+  .mapboxgl-control-container {
+    display: none;
+}
+.mapboxgl-control-attrib-inner {
+    display: none;
+}
   .img-div{
       border: 1px solid rgba(255, 0, 0, 0.446);
   }
@@ -92,7 +118,7 @@ class Report extends HTMLElement{
    }
  
    .form_container{
-     width:90%;
+     width:330px;
      margin:0 auto;
      background-color: rgb(90 94 98 / 50%);
     border:solid 5px rgb(218, 118, 118);
@@ -107,12 +133,19 @@ class Report extends HTMLElement{
      text-align: center;
      align-items: center;
      justify-content: center;
+     margin-top:20px;
+     color:green;
 
    }
   .inputName{
-    text-align:center;
+    margin-left: 29.2px;
+  
   }
-
+  .error{
+    color:red;
+    text-align:center;
+    display:none;
+  }
     `
    
     
@@ -124,14 +157,15 @@ function initMap() {
   });
 }
 
-function initSearchForm(callback) {
-  const form = document.querySelector(".form");
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const target:any = e.target
 
+function initSearchForm(callback) {
+  const marcarLugar:HTMLElement = document.querySelector(".marcarLugar")
+  const busqueda:any = document.querySelector(".busqueda")
+
+  marcarLugar.addEventListener("click",(e)=>{
+    e.preventDefault()
     mapboxClient.geocodeForward(
-      target.busqueda.value,
+      busqueda.value,
       {
         country: "ar",
         autocomplete: true,
@@ -141,7 +175,8 @@ function initSearchForm(callback) {
         if (!err) callback(data.features);
       }
     );
-  });
+  })
+
 }
 let lng;
 let lat;

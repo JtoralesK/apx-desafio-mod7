@@ -3,27 +3,38 @@ import {state} from"../../state"
 
 class MascotasCercanas extends HTMLElement{
     connectedCallback(){
+      
       this.render()
       const elemento:any = document.querySelector("#results-item-template")
       const mascotasReportadas:HTMLElement = document.querySelector(".results")      
       const cs = state.getState()
         const reports = cs.me.reportsCercanos
-        if(reports==[]){
-          console.log("no hay");
-          
-        }else{
-          reports.map((e)=>{
-          
-            const tituloel= elemento.content.querySelector(".title_clone")
-            const img = elemento.content.querySelector(".src_clone")
-            tituloel.textContent= e.petName
-            img.src=e.url
-            const clone = document.importNode(elemento.content, true)
-            mascotasReportadas.appendChild(clone)
+        function clonar(){
+          if(reports[0]==undefined){
+            console.log("no hay");
+            const sinMascotas:HTMLElement = document.querySelector(".sinMascotas")   
+            sinMascotas.style.display="initial"   
+    
+          }else{
+            reports.map((e)=>{
+            
+              const tituloel= elemento.content.querySelector(".title_clone")
+              const location= elemento.content.querySelector(".location_clone")
+              console.log(e);
               
-            })
+              const img = elemento.content.querySelector(".src_clone")
+              tituloel.textContent= e.petName
+              location.textContent= e.location
+              img.src=e.url
+              const clone = document.importNode(elemento.content, true)
+              mascotasReportadas.appendChild(clone)
+                
+              })
+          }
         }
-     
+        clonar()
+       
+       
       
       
    }
@@ -33,11 +44,15 @@ class MascotasCercanas extends HTMLElement{
 
       this.innerHTML=`
       <h1 class="title_principal">Mascotas cercanas</h1>
+      <h2 class="sinMascotas">No hay mascotas cercanas</h2>
+
      <div class="results">
       <template id="results-item-template" class="servicios_content">
       <div class="servicios_card">
       <img class="src_clone"  alt="">
+      <h3 class="location_clone"></h3>
       <h1 class="title_clone"></h1>
+
       </div>
        </template>
      </div>
@@ -50,7 +65,10 @@ class MascotasCercanas extends HTMLElement{
       margin:0;
 
   }
-  
+  .sinMascotas{
+    display:none;
+    color:red;
+  }
   .title_principal{
     margin:20px;
     text-align:center;
@@ -101,9 +119,16 @@ z-index: 1;
 .title_clone {
   font-weight: 600;
   font-size:32px;
-  margin: 15px 0;
+  margin:  0;
   font-family: 'Baloo Thambi 2', cursive;
   text-align:left;
+}
+.location_clone{
+  font-weight: 400;
+  font-size:16px;
+  margin:0 10px 0 0;
+  font-family: 'Baloo Thambi 2', cursive;
+  text-align:right;
 }
 .servicios_card-p {
   padding: 0 1rem;

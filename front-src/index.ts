@@ -5,8 +5,8 @@ import "./pages/login/login"
 import "./pages/reporta/reportaMascota"
 import "./pages/mascotasReportadas/mascotasReportadas"
 import "./pages/mascotasCerca/cercaMascota"
+import "./pages/perfil/perfil"
 //components
-import "./components/header/header"
 import "./components/header2"
 
 //state

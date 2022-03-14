@@ -7,6 +7,8 @@ router.setRoutes([
   {path: '/report', component: 'report-el'},
   {path: '/mascotas', component: 'mascotas-el'},
   {path: '/cerca', component: 'mascotascercanas-el'},
+  {path: '/perfil', component: 'perfil-el'},
+
 
 
 
