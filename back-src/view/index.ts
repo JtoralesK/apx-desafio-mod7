@@ -117,7 +117,10 @@ console.log(lat,lng);
     res.json(outputData)
   }
 })
-
+app.get("*", (req, res) => {
+ 
+  res.sendFile(rutaRelativa)
+});
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
