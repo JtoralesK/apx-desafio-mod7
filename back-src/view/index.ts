@@ -10,7 +10,8 @@ import * as jwt from"jsonwebtoken"
 import * as path from "path"
 import { index } from "../lib/algolia/algolia"
 
-
+const rutaRelativa = path.resolve(__dirname, "../../dist/index.html");
+console.log(rutaRelativa);
 const port = process.env.PORT //3005
 console.log(process.env.PORT,process.env.DB_HOST);
 
@@ -116,12 +117,7 @@ console.log(lat,lng);
     res.json(outputData)
   }
 })
-app.get("*", (req, res) => {
-  const rutaRelativa = path.resolve(__dirname, "../../front-src/index.html");
-  console.log(rutaRelativa);
-  
-  res.sendFile(rutaRelativa)
-});
+
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
