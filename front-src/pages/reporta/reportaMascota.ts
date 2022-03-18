@@ -31,21 +31,20 @@ class Report extends HTMLElement{
             error.style.display="none"
             const target:any = e.target
             const petName = target.name.value
-            const desciption = target.bio.value
             const loca = target.busqueda.value
+
             
             const eje:HTMLElement = document.querySelector(".ejemplo")
                 eje.style.color="green"
-            state.dataParaCloudinary(petName,desciption,imgDataUrl,loca,()=>{
+            state.dataParaCloudinary(petName,imgDataUrl,loca,()=>{
               state.makeToReport(()=>{
+                console.log(cs.error.confirmarUbicacion);
+                
                 if(cs.error.confirmarUbicacion==false){
                   const error:HTMLElement = document.querySelector(".error")
                   error.style.display="initial"
                   
                   state.setErrorUbi()
-
-                }else{
-                  Router.go("/mascotas")                
 
                 }
               })
@@ -69,11 +68,7 @@ class Report extends HTMLElement{
       <h1 class="ejemplo">Mi reporte</h1>
       <label >
           <h2>Nombre de la mascota</h2>
-          <input type="text" class="input inputName" name="name" required>
-      </label>
-      <label >
-          <h2>Describilo</h2>
-          <textarea name="bio" class="bio" ></textarea >
+          <input type="text" class="input inputName" name="name" required  placeholder="michi">
       </label>
       <div class="img-div">
           <img class="prrofile-img">

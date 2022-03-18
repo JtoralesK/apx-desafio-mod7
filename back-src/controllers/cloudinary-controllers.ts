@@ -14,7 +14,6 @@ export async function updateProfile(userId:number,data){
   );
   const updateData = {
     petName:data.petName,
-    description:data.description,
     location:data.location,
     lat:data.lat,
     lng:data.lng,
@@ -22,18 +21,18 @@ export async function updateProfile(userId:number,data){
     cellphone:data.cellphone,
     user_id:userId
   }
-
+  const user = await User.findByPk(updateData.user_id)
   const report=await Report.create(updateData);
-    
+
     
     
   index.saveObject({
    petName: report.get("petName"),
-   description: report.get("description"),
    url: report.get("url"),
    location:report.get("location"),
    cellphone: report.get("cellphone"),
    objectID: report.get("id"),
+   userEmail:user.get("email"),
    "_geoloc": {
      "lat":report.get("lat"),
      "lng":report.get("lng")

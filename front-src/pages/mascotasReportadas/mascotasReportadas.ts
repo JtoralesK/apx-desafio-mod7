@@ -3,58 +3,59 @@ import {state} from"../../state"
 import {Dropzone} from"dropzone"
 
 class MascotasReportadas extends HTMLElement{
+  report: string;
+  constructor() {
+      super();
+  }
     connectedCallback(){
+      
       this.render()
-      const elemento:any = document.querySelector("#results-item-template")
-      const mascotasReportadas:HTMLElement = document.querySelector(".results")      
-      const cs = state.getState()
-      const reports = cs.me.reports
-      console.log(reports[0]);
       
-      
-      if(reports[0]==undefined){
-        console.log("no hay");
-        const sinMascotas:HTMLElement = document.querySelector(".sinMascotas")   
-        sinMascotas.style.display="initial"   
-
-      }else{
-        reports.map((e)=>{
-          console.log(e.location);
-
-          const tituloel= elemento.content.querySelector(".title_clone")
-          const location= elemento.content.querySelector(".location_clone")
-          console.log(location);
-          
-          const img = elemento.content.querySelector(".src_clone")
-          location.textContent= e.location
-          tituloel.textContent= e.petName
-          img.src=e.url
-          const clone = document.importNode(elemento.content, true)
-          mascotasReportadas.appendChild(clone)
-            
-          })
-      }
-      
+   
    }
 
    render(){
+     
        const style = document.createElement("style")
+  
+       const elemento:any = document.querySelector(".results-item-template")
+       const sinMascotas:HTMLElement = document.querySelector(".sinMascotas")
 
+       const cs = state.getState()
+       const reports = cs.me.reports
+       function verificador(){
+        if(reports[0]){
+          return true
+        }else{
+          return false
+        }
+       }
+       function sinMascotass(){
+       const h1 = document.createElement("h1")
+       h1.textContent="no"
+       elemento.appendChild(h1)
+       return true
+       }
+    
       this.innerHTML=`
       <h1 class="title_principal">Mis Mascotas Reportadas</h1>
-      <h2 class="sinMascotas">No reportaste ninguna mascota</h2>
-
-     <div class="results">
-      <template id="results-item-template" class="servicios_content">
-      <div class="servicios_card">
-      <img class="src_clone"  alt="">
-      <h3 class="location_clone"></h3>
-
-      <h1 class="title_clone"></h1>
-
-      </div>
-       </template>
+      <div class="results">
+      <div class="results-item-template" class="servicios_content">
+      ${  verificador()? reports.map((e)=>
+        `  <div class="servicios_card">
+        <img class="src_clone" src="${e.url}"  alt="">
+        <h3 class="location_clone">${e.location}</h3>
+  
+        <h1 class="title_clone">${e.petName}</h1>
+  
+        </div>
+        ` 
+       ).join(""):`<h2 class="sinMascotas">No reportaste ninguna mascota</h2> ` }
+     
+       </div>
      </div>
+     
+    
 
      
       `
@@ -65,7 +66,6 @@ class MascotasReportadas extends HTMLElement{
 
   }
   .sinMascotas{
-    display:none;
     color:red;
   }
   .title_principal{
@@ -159,7 +159,7 @@ z-index: 1;
 
 
     `  
-
+  
     this.appendChild(style)
    }
   

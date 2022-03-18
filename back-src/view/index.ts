@@ -6,14 +6,13 @@ import * as crypto from"crypto"
 import { colocaDatos, me,meConfirm } from "../controllers/users-controllers"
 import {updateProfile } from"../controllers/cloudinary-controllers"
 import {  TodosLosReportes, unReporte,actulizaReporte,reportesDeUnUsuario,reporteCerca} from "../controllers/algolia-controllers"
+import {sendEmailToUser} from"../lib/sendgrid/sendgrid"
 import * as jwt from"jsonwebtoken"
 import * as path from "path"
 import { index } from "../lib/algolia/algolia"
 
 const rutaRelativa = path.resolve(__dirname, "../../dist/index.html");
-console.log(rutaRelativa);
 const port = process.env.PORT //3005
-console.log(process.env.PORT,process.env.DB_HOST);
 
 const app = express()
 app.use(cors())
@@ -116,6 +115,21 @@ console.log(lat,lng);
     const outputData = await updateProfile(1,req.body)
     res.json(outputData)
   }
+})
+app.post("/email",async(req,res)=>{  
+   const {emailUser} = req.body  
+   const {name} = req.body
+   const {bio} = req.body
+   const {cellphone} = req.body
+
+   if(!req.body){
+    res.status(404).json({error:"faltan datos"})
+  }else{
+    const outputData = await sendEmailToUser(emailUser,name,bio,cellphone)
+    res.json(outputData)
+  }
+ 
+  
 })
 app.get("*", (req, res) => {
  

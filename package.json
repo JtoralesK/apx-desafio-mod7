@@ -9,10 +9,11 @@
     "sync": "ts-node ./back-src/db/sync.ts",
     "build:front": "parcel build ./front-src/index.html",
     "build:back": "tsc",
-    "build":"yarn build:front && yarn build:back",
+    "build": "yarn build:front && yarn build:back",
     "start": "node ./back-dist/developing.js"
   },
   "dependencies": {
+    "@sendgrid/mail": "^7.6.2",
     "@vaadin/router": "^1.7.4",
     "algoliasearch": "^4.12.0",
     "cloudinary": "^1.28.1",

@@ -5,6 +5,7 @@ type Page="/cerca" | "/report" | "/mascotas"| "/perfil"
 type Local="token" | "reports" 
 
 const API_BASE_URL= process.env.DB_HOST
+console.log(process.env.API_SENDGRID,API_BASE_URL );
 
 const state={
   
@@ -31,6 +32,7 @@ const state={
         lat:false
        },
        me:{
+         error:false,
         token:"",
         reports:[],
         reportsCercanos:[],
@@ -39,6 +41,13 @@ const state={
        error:{
          usuario:"",
          confirmarUbicacion:""
+       },
+       email:{
+         name:"",
+         cellphone:"",
+         bio:"",
+         emailUser:"",
+         emailEnviado:false
        }
      
     
@@ -134,12 +143,32 @@ const state={
         let cs = this.getState()
         cs.error.confirmarUbicacion = ""
         this.setState(cs) 
+      }, setBoolean(){
+        let cs = this.getState()
+        cs.me.error = false
+        this.setState(cs) 
       },
       setReportLocation(lng:string,lat:string){
         let cs = this.getState()
         cs.report.lng = lng
         cs.report.lat = lat
         this.setState(cs) 
+      },
+      setEmailEnviado(){
+        let cs = this.getState()
+        cs.email.emailEviado = false
+        this.setState(cs) 
+      },
+      setEmail(name:string,bio:string,cellphone:string,emailUser:string,callback){
+        let cs = this.getState()
+        cs.email.name = name
+        cs.email.cellphone = cellphone
+        cs.email.bio = bio
+        cs.email.emailUser = emailUser
+
+
+        this.setState(cs) 
+        callback()
       },
 
       dataRegistroMiUser(fullname:string,email:string,password:string){
@@ -161,12 +190,13 @@ const state={
         this.setState(data) 
 
       },
-      dataParaCloudinary(name:string,description:string,img:string,location:string,callback){
+      dataParaCloudinary(name:string,img:string,location:string,callback){
         let data = this.getState()
         data.report.name = name
-        data.report.description =description
         data.report.img =img
         data.report.location=location
+
+
         this.setState(data) 
         callback()
       },
@@ -315,6 +345,8 @@ const state={
         }).then(response => response.json())
         .then(data => {
            cs.me.reports=data
+           console.log(data,"data");
+           
            this.setState(cs)  
           callback()       
         });
@@ -326,13 +358,10 @@ const state={
       const cs = this.getState()
       const petName=  cs.report.name 
       const location = cs.report.location 
-      const description= cs.report.description 
       const lng = cs.report.lng
       const lat = cs.report.lat
-      const cellphone = 1124670573
       const url = cs.report.img 
-    
-      
+ 
       fetch(API_BASE_URL+"/profile",{
         headers:{
           "content-type":"application/json",
@@ -340,23 +369,28 @@ const state={
         },
         method:"POST",
         body:JSON.stringify({
-          petName,description,location,lng,lat,cellphone,url
+          petName,location,lng,lat,url
         })
       }).then((r)=>{return r.json()}).then((e)=>
       {
         console.log(e);
+        
         if(e.error){
           cs.error.confirmarUbicacion=e.error
-          this.setState(cs)  
+      
+        }
+        if(e.id){
+          cs.me.error=true
 
-        }else{
           this.obtieneMisReportes(()=>{
-            
-  
+            Router.go("/mascotas")
           })
         }
+        this.setState(cs)  
         callback()
+
       })
+
     },
     reportesCerca(callback){
       const cs = this.getState()
@@ -372,6 +406,33 @@ const state={
         this.setState(cs)  
           callback()  
       })
+    }, emailEnviar(callback){
+      const cs = this.getState()
+      const emailUser=  cs.email.emailUser 
+      const name= cs.email.name 
+      const bio = cs.email.bio
+      const cellphone = cs.email.cellphone
+      
+   
+      fetch(API_BASE_URL+"/email",{
+        method:"POST",
+        headers:{
+          'Content-Type': 'application/json',
+        }, 
+           body:JSON.stringify({
+           emailUser,bio,cellphone,name
+        })
+
+      }).then(response => response.json())
+      .then(data => {
+        console.log(data);
+       
+       cs.email.emailEnviado=true
+         this.setState(cs)  
+         callback()
+      });
+      
+      
     },
     //user location
 
