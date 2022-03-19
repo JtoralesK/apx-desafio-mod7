@@ -20,7 +20,7 @@ class MascotasReportadas extends HTMLElement{
         const avisar = document.querySelector(button)
         
         avisar.addEventListener("click",()=>{
-          console.log(avisar);
+          console.log(e.id);
           
           state.setNumberReport(e.id,()=>{
             Router.go("/cambiar")
@@ -44,7 +44,9 @@ class MascotasReportadas extends HTMLElement{
        const reports = cs.me.reports
       
        
-      //  reports.map((e)=>)
+       reports.filter((e)=>{
+         
+       })
        function verificador(){
         if(reports[0]){
           return true

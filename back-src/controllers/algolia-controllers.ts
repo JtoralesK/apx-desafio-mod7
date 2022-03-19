@@ -142,4 +142,18 @@ export async function reporteCerca(lng:number,lat:number){
  return hits
   
 }
+export async function eliminateMascot( idReport:number) {
+  const objectID = `${idReport}`
 
+  try {
+
+      const mascotFound = await Report.findByPk(idReport);
+      await mascotFound.destroy();
+      await index.deleteObject(objectID);
+  
+      return true;
+
+  } catch (e) {
+      console.error(e,"algo salio mal");
+  }
+}

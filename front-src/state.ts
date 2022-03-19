@@ -504,6 +504,21 @@ const state={
     });
     
       
+    },elminarReport(){
+      const cs = this.getState()
+     
+     fetch(API_BASE_URL+"/eliminar-report/"+cs.editar.report,{
+      method:"DELETE",
+
+    }).then(response => response.json())
+    .then(data => {
+     this.obtieneMisReportes(()=>{
+       Router.go("/mascotas")
+     })
+       
+    });
+    
+      
     },
     //user location
 

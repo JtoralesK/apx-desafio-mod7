@@ -5,7 +5,7 @@ import *as cors from"cors"
 import * as crypto from"crypto"
 import { colocaDatos, me,meConfirm ,actualizarPerfilUsuario} from "../controllers/users-controllers"
 import {updateProfile } from"../controllers/cloudinary-controllers"
-import {  TodosLosReportes, unReporte,actulizaReporte,reportesDeUnUsuario,reporteCerca} from "../controllers/algolia-controllers"
+import {  TodosLosReportes, unReporte,actulizaReporte,eliminateMascot,reporteCerca} from "../controllers/algolia-controllers"
 import {sendEmailToUser} from"../lib/sendgrid/sendgrid"
 import * as jwt from"jsonwebtoken"
 import * as path from "path"
@@ -80,6 +80,8 @@ app.get("/reportes/all",async(req,res)=>{
  res.json(data)
 })
 app.get("/me/reportes",authMiddelwire,async(req,res)=>{
+  console.log(req._user.id,"user");
+  
   const data=await unReporte(req._user.id)
   res.json(data)
  })
@@ -141,6 +143,14 @@ app.post("/email",async(req,res)=>{
  
   
 })
+app.delete("/eliminar-report/:id", async(req, res) => {
+ if(!req.body){
+  res.status(404).json({error:"faltan datos"})
+}else{
+  const resp= await eliminateMascot(req.params.id)
+ res.json(resp)
+}
+});
 app.get("*", (req, res) => {
  
   res.sendFile(rutaRelativa)

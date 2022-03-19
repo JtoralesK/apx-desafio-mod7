@@ -35,16 +35,29 @@ class ReportCambiado extends HTMLElement{
             state.editarReport(petName,loca,imgDataUrl)
             state.setNumberReportEditado()
         })
-        console.log();
-        
+
+        const buttonEleminar = document.querySelector(".eleminar")
+        buttonEleminar.addEventListener("click",()=>{
+          console.log("eleminar");
+          
+         state.elminarReport()
+        })
    }
 
    render(){
        const cs = state.getState()
         const reportInfo = cs.me.reports
-        const numberReport = cs.editar.report-1
-        const reportElegido = reportInfo[numberReport]
+        const numberReport = cs.editar.report
         
+        function report(){
+         return reportInfo.find((e)=>{
+           return e.id=numberReport
+          })
+          
+        }
+        report()
+     const name= report()
+     
 
        const style = document.createElement("style")
 
@@ -57,7 +70,7 @@ class ReportCambiado extends HTMLElement{
       <h1 class="ejemplo">Editar mi reporte</h1>
       <label >
           <h2>Nombre de la mascota</h2>
-          <input type="text" class="input inputName" name="name"   placeholder="${reportElegido.petName}">
+          <input type="text" class="input inputName" name="name"   placeholder="${name.petName}">
       </label>
       <div class="img-div">
           <img class="prrofile-img">
@@ -71,8 +84,9 @@ class ReportCambiado extends HTMLElement{
       <button class="marcarLugar">Confirmar Ubicación</button>
         </div> 
         <h3 class="error">Falta confirmar ubicacion o subir imagen</h3>
-        <button class="guardar" >Reportar</button>
+        <button class="guardar" >Cambiar</button>
     </form>
+    <button class="eleminar" >Eleminar report</button>
 
      
       `
@@ -87,6 +101,11 @@ class ReportCambiado extends HTMLElement{
 }
 .mapboxgl-control-attrib-inner {
     display: none;
+}
+.eleminar{
+  color:black;
+  background-color:#cc5b5ba6;
+  margin-top:20px;
 }
   .img-div{
       border: 1px solid rgba(255, 0, 0, 0.446);
