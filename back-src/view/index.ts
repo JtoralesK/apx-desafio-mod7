@@ -4,7 +4,7 @@ import *as express from "express"
 import *as cors from"cors"
 import * as crypto from"crypto"
 import { colocaDatos, me,meConfirm ,actualizarPerfilUsuario} from "../controllers/users-controllers"
-import {updateProfile } from"../controllers/cloudinary-controllers"
+import {reportarUnaMacota } from"../controllers/cloudinary-controllers"
 import {  TodosLosReportes, unReporte,actulizaReporte,eliminateMascot,reporteCerca} from "../controllers/algolia-controllers"
 import {sendEmailToUser} from"../lib/sendgrid/sendgrid"
 import * as jwt from"jsonwebtoken"
@@ -124,7 +124,7 @@ console.log(lat,lng);
     res.status(404).json({error:"faltan datos"})
   }else{
     
-    const outputData = await updateProfile(1,req.body)
+    const outputData = await reportarUnaMacota(req._user.id,req.body)
     res.json(outputData)
   }
 })

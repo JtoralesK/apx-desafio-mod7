@@ -138,7 +138,7 @@ export class Headeer extends HTMLElement{
            <li class="container_submenu items">
              <a href="#" class="menu_link submenuMascotas" >Mascotas <i class="fas fa-chevron-down"></i></a>
              <ul class="submenu">
-               <li class="menu_item"><a href="" class="menu_link reportarMascotas ">Reportar Mascotar </a></li>
+               <li class="menu_item"><a href="" class="menu_link reportarMascotas ">Reportar Mascota </a></li>
                <li class="menu_item"><a href="" class="menu_link mascotasReportadas">Mascotas Reportadas</a></li>
                <li class="menu_item"><a href="" class="menu_link MascotasCercaTuyo">Mascotas cerca tuyo</a></li>
              </ul>

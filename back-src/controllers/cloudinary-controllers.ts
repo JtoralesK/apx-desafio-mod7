@@ -1,7 +1,7 @@
 import { cloudinary } from "../lib/cloudinary/connection"
 import { index } from "../lib/algolia/algolia"
 import { User,Auth,Report } from "../model";
-export async function updateProfile(userId:number,data){
+export async function reportarUnaMacota(userId:number,data){
     
     if(data.url && data.lat!=false && data.lng!=false ){
       console.log("entro");

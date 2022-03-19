@@ -42,6 +42,9 @@ class Perfil extends HTMLElement{
       box-sizing: border-box;
       margin:0;
     }
+    .button{
+        margin-top:15px;
+    }
     .miPerfil{
         text-align:center;
         color:red;

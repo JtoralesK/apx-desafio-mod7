@@ -359,14 +359,18 @@ const state={
         
       }, obtieneMisReportes(callback){        
         const cs = this.getState()
+        console.log(cs.me.token);
         
         fetch(API_BASE_URL+"/me/reportes",{
           headers:{
-            'Authorization':`bearer ${cs.me.token}`
+            'Authorization':`bearer ${cs.me.token}`,
+
           },
 
         }).then(response => response.json())
         .then(data => {
+          console.log(data);
+          
            cs.me.reports=data
            
            this.setState(cs)  
