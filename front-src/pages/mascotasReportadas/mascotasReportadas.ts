@@ -10,7 +10,26 @@ class MascotasReportadas extends HTMLElement{
     connectedCallback(){
       
       this.render()
+      const cs = state.getState()
       
+      const reports = cs.me.reports
+      reports.map((e)=>{
+        const  petName =e.petName+e.id+e.user_id
+        const button = '.'+ petName
+        
+        const avisar = document.querySelector(button)
+        
+        avisar.addEventListener("click",()=>{
+          console.log(avisar);
+          
+          state.setNumberReport(e.id,()=>{
+            Router.go("/cambiar")
+          })
+        })
+        
+        
+  
+      })
    
    }
 
@@ -23,6 +42,9 @@ class MascotasReportadas extends HTMLElement{
 
        const cs = state.getState()
        const reports = cs.me.reports
+      
+       
+      //  reports.map((e)=>)
        function verificador(){
         if(reports[0]){
           return true
@@ -30,23 +52,24 @@ class MascotasReportadas extends HTMLElement{
           return false
         }
        }
-       function sinMascotass(){
-       const h1 = document.createElement("h1")
-       h1.textContent="no"
-       elemento.appendChild(h1)
-       return true
-       }
+     
     
       this.innerHTML=`
       <h1 class="title_principal">Mis Mascotas Reportadas</h1>
       <div class="results">
       <div class="results-item-template" class="servicios_content">
       ${  verificador()? reports.map((e)=>
+          
+          
+        
         `  <div class="servicios_card">
         <img class="src_clone" src="${e.url}"  alt="">
         <h3 class="location_clone">${e.location}</h3>
   
+        <div class="misma">
         <h1 class="title_clone">${e.petName}</h1>
+        <button class="${e.petName+e.id+e.user_id} editar">Editar</button>
+        </div>
   
         </div>
         ` 
@@ -67,6 +90,17 @@ class MascotasReportadas extends HTMLElement{
   }
   .sinMascotas{
     color:red;
+  }
+  .editar{
+    background: none;
+    border: none;
+    background-color:#468246ab;
+    border-radius:3px;
+  }
+  .misma{
+    display:flex;
+    justify-content: space-between;  
+    padding:0 10px;
   }
   .title_principal{
     margin:20px;

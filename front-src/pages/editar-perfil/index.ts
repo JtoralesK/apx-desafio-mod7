@@ -1,18 +1,15 @@
 import {Router} from"@vaadin/router"
 import {state} from"../../state"
 
-class Perfil extends HTMLElement{
+class PerfilEditable extends HTMLElement{
     connectedCallback(){
         this.render()
-        const button0 = document.querySelector(".button0")
-     const button = document.querySelector(".button")
-     button0.addEventListener("click",()=>{
-          Router.go("/editarPerfil")
-    })
-
-      button.addEventListener("click",()=>{
-          
-          state.setCuenta()
+      const form = document.querySelector(".form")
+      
+      form.addEventListener("submit",(e)=>{
+          e.preventDefault()
+          const target:any = e.target
+          state.editarPerfilDelUsuario(target.name.value,target.email.value)
       })
 
       
@@ -27,13 +24,13 @@ class Perfil extends HTMLElement{
       this.innerHTML=`
       <section class="container">
       <div class="container_perfil">
-      <h1 class="miPerfil">Mi perfil</h1>
-      <p>Usuario:${usuario}</p>
-      <p>Email:${email}</p>
-      <button class="button0">Editar Perfil</button>
-      <button class="button">Cerrar Secion</button>
-
+      <h1 class="miPerfil">Editar perfil</h1>
+      <form class="form">
+      <input type="text" class="input " name="name"   placeholder="${usuario}">
+      <input type="text" class="input " name="email"   placeholder="${email}">
+      <button class="button">Editar Perfil</button>
       </div>
+      </form>
       <section>
      
       `
@@ -63,4 +60,4 @@ class Perfil extends HTMLElement{
    }
   
 }
-customElements.define("perfil-el",Perfil)
+customElements.define("editar-perfil-el",PerfilEditable)

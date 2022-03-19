@@ -35,8 +35,14 @@ function bodyparse(body,id?){
     if(body.petName){
       respuesta.petName=body.petName
     }
-    if(body.description){
-      respuesta.description=body.description
+    if(body.url){
+      respuesta.url=body.url
+    }
+    if(body.userEmail){
+      respuesta.userEmail=body.userEmail
+    }
+    if(body.location){
+      respuesta.location=body.location
     }
     if(body.lat && body.lng){
       respuesta._geoloc={
@@ -46,18 +52,72 @@ function bodyparse(body,id?){
     }
     return respuesta
   }
-export async function actulizaReporte(data,id:number){
-    const dataActualiza=await Report.update(data,{where:{id}})
+export async function actulizaReporte(data,id:number,idUser:number){
+  if(data.url){
+    console.log("if");
+
+  const image = await cloudinary.uploader.upload(data.url,{
+    resource_type:"image",
+    discard_original_filename:true,
+    width:1000
+})
+
+const dataMasImage = {
+   petName :data.petName,
+   location:data.location,
+   lat:data.lat,
+   lng:data.lng,
+   url:image.secure_url
+}
+
+
+   const dataActualiza=await Report.update(dataMasImage,{where:{id}})
+
+   const user=await User.findByPk(idUser)
+   const dataMasEmail = {
+    petName :data.petName,
+    location:data.location,
+    lat:data.lat,
+    lng:data.lng,
+    url:image.secure_url,
+    userEmail:user.get("email"),
+
+ }
+ 
+      const indexItem = bodyparse(dataMasEmail,id)
       
-      const indexItem = bodyparse(data,id)
       index.partialUpdateObject(indexItem).then((object) => {
-        console.log(object);
+        console.log("okay");
       }).catch((e)=>{
-        console.log(e);
+        console.log("salio mal");
         
       })
+return dataActualiza
+  }else{
+    console.log("else");
+    
+  const dataActualiza=await Report.update(data,{where:{id}})
+
+  const user=await User.findByPk(idUser)
+  const dataMasEmail = {
+   petName :data.petName,
+   location:data.location,
+   lat:data.lat,
+   lng:data.lng,
+   userEmail:user.get("email"),
+
+}
+     const indexItem = bodyparse(dataMasEmail,id)
+     
+     index.partialUpdateObject(indexItem).then((object) => {
+       console.log("okay");
+     }).catch((e)=>{
+       console.log("salio mal");
        
-   return dataActualiza
+     })
+     return dataActualiza
+  }
+ 
 }
 
 export async function reportesDeUnUsuario(id:number){

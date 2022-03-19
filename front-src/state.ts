@@ -11,8 +11,7 @@ const state={
   
     data: {
         dataRegistro:{
-            fullname:"",
-            email:"",
+           
             password:"",
             mode:"",
             token:"",
@@ -36,7 +35,9 @@ const state={
         token:"",
         reports:[],
         reportsCercanos:[],
-        page:""
+        page:"",
+        name:"",
+        email:""
        },
        error:{
          usuario:"",
@@ -48,8 +49,14 @@ const state={
          bio:"",
          emailUser:"",
          emailEnviado:false
+       },editar:{
+        lng:undefined,
+        lat:undefined,
+        report:0
+
        }
-     
+      
+       
     
       },
       listeners: [],
@@ -111,7 +118,7 @@ const state={
         token:"",
         reports:[],
         reportsCercanos:[],
-        page:""
+        page:"",
       };
       data.error={
         usuario:""
@@ -154,6 +161,17 @@ const state={
         cs.report.lat = lat
         this.setState(cs) 
       },
+      EditarReportLocation(lng:string,lat:string){
+        let cs = this.getState()
+        cs.editar.lng = lng
+        cs.editar.lat = lat
+        this.setState(cs) 
+      },setNumberReportEditado(){
+        let cs = this.getState()
+        cs.editar.report = 0
+       
+        this.setState(cs) 
+      },
       setEmailEnviado(){
         let cs = this.getState()
         cs.email.emailEviado = false
@@ -169,20 +187,25 @@ const state={
 
         this.setState(cs) 
         callback()
+      }, setNumberReport(id:number,callback){
+        let cs = this.getState()
+        cs.editar.report = id
+        this.setState(cs) 
+        callback()
+
       },
 
       dataRegistroMiUser(fullname:string,email:string,password:string){
         let data = this.getState()
-        data.dataRegistro.fullname = fullname
-        data.dataRegistro.email = email
+        data.me.fullname = fullname
+        data.me.email = email
         data.dataRegistro.password = password
         data.dataRegistro.mode = "registrado"
-        console.log("registrado");
         
         this.setState(data) 
       }, dataInicioSecion(email:string,password:string){
         let data = this.getState()
-        data.dataRegistro.email = email
+        data.me.email = email
         data.dataRegistro.password = password
         data.dataRegistro.mode = "iniciado"
         console.log("iniciado");
@@ -223,8 +246,8 @@ const state={
             'Content-Type': 'application/json'
           },
            body:JSON.stringify({
-            fullname:cs.dataRegistro.fullname,
-            email:cs.dataRegistro.email,
+            fullname:cs.me.fullname,
+            email:cs.me.email,
             password:cs.dataRegistro.password
 
           })
@@ -245,7 +268,7 @@ const state={
             'Content-Type': 'application/json'
           },
            body:JSON.stringify({
-            email:cs.dataRegistro.email,
+            email:cs.me.email,
             password:cs.dataRegistro.password
 
           })
@@ -270,8 +293,8 @@ const state={
         .then(data => {
           if(data.fullname && data.createdAt){
             console.log(data.fullname && data.createdAt);
-            cs.dataRegistro.fullname=data.fullname 
-            cs.dataRegistro.email=data.email 
+            cs.me.name=data.fullname 
+            cs.me.email=data.email 
             cs.dataRegistro.created=data.createdAt
           }if(data.error){
             console.log(data.error);
@@ -345,7 +368,6 @@ const state={
         }).then(response => response.json())
         .then(data => {
            cs.me.reports=data
-           console.log(data,"data");
            
            this.setState(cs)  
           callback()       
@@ -432,6 +454,55 @@ const state={
          callback()
       });
       
+      
+    },editarReport(petName,location,img,){
+      const cs = this.getState()
+      const lat = cs.editar.lat
+      const lng = cs.editar.lng
+     const e = {petName,location,url:img,lat,lng }
+     fetch(API_BASE_URL+"/reportes/"+cs.editar.report,{
+      method:"PUT",
+      headers:{
+        'Authorization':`bearer ${cs.me.token}`,
+        'Content-Type': 'application/json',
+      }, 
+         body:JSON.stringify(e)
+
+    }).then(response => response.json())
+    .then(data => {
+     this.obtieneMisReportes(()=>{
+       Router.go("/mascotas")
+     })
+       
+    });
+    
+      
+    },editarPerfilDelUsuario(a,b){
+      const cs = this.getState()
+      const name = a
+      const email = b
+      console.log(name,email,cs.me.token);
+      
+     fetch(API_BASE_URL+"/editar-perfil",{
+      
+      headers:{
+        'Authorization':`bearer ${cs.me.token}`,
+        'Content-Type': "application/json"
+
+      }, method:"PUT",
+         body:JSON.stringify({name,email})
+
+    }).then(response => response.json())
+    .then(data => {
+     console.log(data);
+      state.obtieneMiData(()=>{
+         Router.go("/perfil")
+
+      })
+     
+       
+    });
+    
       
     },
     //user location

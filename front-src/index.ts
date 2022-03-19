@@ -6,6 +6,8 @@ import "./pages/reporta/reportaMascota"
 import "./pages/mascotasReportadas/mascotasReportadas"
 import "./pages/mascotasCerca/cercaMascota"
 import "./pages/perfil/perfil"
+import "./pages/editar-eleminar/index"
+import "./pages/editar-perfil/index"
 //components
 import "./components/header2"
 

@@ -8,6 +8,10 @@ router.setRoutes([
   {path: '/mascotas', component: 'mascotas-el'},
   {path: '/cerca', component: 'mascotascercanas-el'},
   {path: '/perfil', component: 'perfil-el'},
+  {path: '/cambiar', component: 'report-cambiado-el'},
+  {path: '/editarPerfil', component: 'editar-perfil-el'},
+
+
 
 
 

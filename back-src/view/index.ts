@@ -3,7 +3,7 @@ import {sequelize} from"../db/connection"
 import *as express from "express"
 import *as cors from"cors"
 import * as crypto from"crypto"
-import { colocaDatos, me,meConfirm } from "../controllers/users-controllers"
+import { colocaDatos, me,meConfirm ,actualizarPerfilUsuario} from "../controllers/users-controllers"
 import {updateProfile } from"../controllers/cloudinary-controllers"
 import {  TodosLosReportes, unReporte,actulizaReporte,reportesDeUnUsuario,reporteCerca} from "../controllers/algolia-controllers"
 import {sendEmailToUser} from"../lib/sendgrid/sendgrid"
@@ -85,9 +85,19 @@ app.get("/me/reportes",authMiddelwire,async(req,res)=>{
  })
  
 
- app.put("/reportes/:id",async(req,res)=>{
+ app.put("/reportes/:id",authMiddelwire,async(req,res)=>{
+   
   if(req.body){
-    const datos = await actulizaReporte(req.body,req.params.id)
+    const datos = await actulizaReporte(req.body,req.params.id,req._user.id)
+   res.json(datos)
+  }else{
+    res.json({error:"faltan datos"})
+  }
+ })
+ app.put("/editar-perfil",authMiddelwire,async(req,res)=>{
+   
+  if(req.body){
+    const datos = await actualizarPerfilUsuario(req.body,req._user.id)
    res.json(datos)
   }else{
     res.json({error:"faltan datos"})

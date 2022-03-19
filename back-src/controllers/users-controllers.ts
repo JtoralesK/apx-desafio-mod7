@@ -81,5 +81,34 @@ export async function meConfirm(id:number){
   }
   
 }
+export async function actualizarPerfilUsuario(body,id:number){
+  const respuesta:any={}
+
+  if(body.email){
+    respuesta.email=body.email
+
+  }
+  if(body.name){
+    respuesta.fullname=body.name
+  }
+  const perfilActualizado=await User.update(respuesta,{where:{id}})
+
+  if(body.email){
+    console.log(1,body);
+    const perfilActualizadoAuth=await Auth.update({email:body.email},{where:{ id}})
+    console.log(perfilActualizadoAuth);
+    
+    return perfilActualizadoAuth
+    
+  }else{
+    console.log("else");
+
+    return perfilActualizado
+  }
+ 
+  
+ 
+  
+}
 
 
