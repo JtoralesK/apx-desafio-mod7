@@ -136,7 +136,7 @@ export async function reporteCerca(lng:number,lat:number){
  
   const { hits } = await index.search("", {
     aroundLatLng:[lat,lng].join(","),
-    aroundRadius:10000
+    aroundRadius:20000
   })
 
  return hits
