@@ -25,7 +25,13 @@ export class Headeer extends HTMLElement{
 
     //mostrar ventanas
     menuVentana.addEventListener("click",()=>{
-      menu.classList.toggle("mostrar")
+      
+      if (menu.classList.contains("mostrar")) {
+        menu.classList.remove("mostrar")
+
+      } else {
+        menu.classList.toggle("mostrar")
+      }
     })
     mascotas.addEventListener("click",()=>{
       submenu.classList.toggle("mostrarSubmenu")
@@ -33,6 +39,12 @@ export class Headeer extends HTMLElement{
      
     //router
     inicio.addEventListener("click",()=>{
+      if (menu.classList.contains("mostrar")) {
+        menu.classList.remove("mostrar")
+
+      } else {
+        menu.classList.toggle("mostrar")
+      }
       Router.go("/")
       
     })
@@ -40,6 +52,12 @@ export class Headeer extends HTMLElement{
 
 
     mascotasReportadas.addEventListener("click",()=>{
+      if (menu.classList.contains("mostrar")) {
+        menu.classList.remove("mostrar")
+
+      } else {
+        menu.classList.toggle("mostrar")
+      }
       state.confirmaUser(()=>{
         const verificador =cs.dataRegistro.created
         if(verificador==false){
@@ -58,6 +76,12 @@ export class Headeer extends HTMLElement{
     
     })
     reportarMascotas.addEventListener("click",()=>{
+      if (menu.classList.contains("mostrar")) {
+        menu.classList.remove("mostrar")
+
+      } else {
+        menu.classList.toggle("mostrar")
+      }
       state.confirmaUser(()=>{
         const verificador =cs.dataRegistro.created
         console.log(2);
@@ -75,6 +99,12 @@ export class Headeer extends HTMLElement{
      
      })
      mascotasCercaTuyo.addEventListener("click",()=>{
+      if (menu.classList.contains("mostrar")) {
+        menu.classList.remove("mostrar")
+
+      } else {
+        menu.classList.toggle("mostrar")
+      }
       state.confirmaUser(()=>{
         const verificador =cs.dataRegistro.created
         console.log(3);
@@ -96,6 +126,12 @@ export class Headeer extends HTMLElement{
       })
      })
      perfil.addEventListener("click",()=>{
+      if (menu.classList.contains("mostrar")) {
+        menu.classList.remove("mostrar")
+
+      } else {
+        menu.classList.toggle("mostrar")
+      }
       state.confirmaUser(()=>{
         const verificador =cs.dataRegistro.created
         console.log(4);
@@ -223,6 +259,9 @@ export class Headeer extends HTMLElement{
   overflow:visible;
   transition: 0.5s;
 
+}
+.sacar{
+  margin-left: -100%
 }
 
 @media (min-width:1024px){

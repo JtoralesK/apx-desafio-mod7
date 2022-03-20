@@ -162,7 +162,6 @@ const caja_trasera_register:HTMLElement  = document.querySelector(".caja__traser
                                         Router.go("/cerca")
                                        })
                                 }if(typePage=="/perfil"){
-                                    console.log(cs.dataRegistro,"wq");
                                     Router.go("/perfil")
                                     
 

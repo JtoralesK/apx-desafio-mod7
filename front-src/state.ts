@@ -11,7 +11,6 @@ const state={
   
     data: {
         dataRegistro:{
-           
             password:"",
             mode:"",
             token:"",
@@ -94,35 +93,49 @@ const state={
       },setCuenta(){
         let data = this.getState()  
         data.dataRegistro={
-          fullname:"",
-          email:"",
           password:"",
           mode:"",
           token:"",
           created:""
-      };
+      },
       data.location={
         lng:"",
         lat:""
-      };
-      data.report={
-        petName:"",
+      },
+     data.report={
+      petName:"",
       location:"",
       description:"",
       cellphone:"",
       url:"",
-      lng:"",
-      lat:""
-      };
-      data.me={
-        token:"",
-        reports:[],
-        reportsCercanos:[],
-        page:"",
-      };
-      data.error={
-        usuario:""
-      };
+      lng:false,
+      lat:false
+     },
+     data.me={
+       error:false,
+      token:"",
+      reports:[],
+      reportsCercanos:[],
+      page:"",
+      name:"",
+      email:""
+     },
+     data.error={
+       usuario:"",
+       confirmarUbicacion:""
+     },
+     data.email={
+       name:"",
+       cellphone:"",
+       bio:"",
+       emailUser:"",
+       emailEnviado:false
+     },data.editar={
+      lng:undefined,
+      lat:undefined,
+      report:0
+
+     }
   
         this.setState(data)
 

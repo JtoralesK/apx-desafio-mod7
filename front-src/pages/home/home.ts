@@ -7,8 +7,25 @@ class Home extends HTMLElement{
       const huella:HTMLElement = document.querySelector(".huella")
       const page_home:HTMLElement = document.querySelector(".page_home")
       const body:HTMLElement = document.querySelector(".body")
-
-
+      const reportarMascotas = document.querySelector(".button")
+      const cs = state.getState()
+      reportarMascotas.addEventListener("click",()=>{
+        console.log(12452);
+        
+        state.confirmaUser(()=>{
+          const verificador =cs.dataRegistro.created
+          
+          if(verificador==false){
+           Router.go("/cerca")
+          }else{
+            state.setPage("/cerca",()=>{
+              Router.go("/login")
+            })
+          }
+  
+        })
+       
+       })
    }
 
    render(){
@@ -56,8 +73,9 @@ class Home extends HTMLElement{
    }
    .section_principal{
      width:100%;
-     height:100vh;
      background-color:white;
+     height:1200px;
+
    }
    @media (min-width:678px){
     .section_principal{
@@ -65,6 +83,8 @@ class Home extends HTMLElement{
      flex-direction: row;
      align-items: revert;
      padding: 100px;
+     height:100vh;
+
     }
     
    .title{
@@ -166,6 +186,10 @@ class Home extends HTMLElement{
     line-height: 1em;
     padding: 20px 30px;
     text-transform: uppercase;
+  }
+  .button:hover{
+    background-color: #2c4900;
+
   }
   
 

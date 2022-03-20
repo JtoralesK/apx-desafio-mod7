@@ -99,6 +99,9 @@ class Report extends HTMLElement{
 .mapboxgl-control-attrib-inner {
     display: none;
 }
+.mapboxgl-marker-anchor-center{
+  display: none;
+}
   .img-div{
       border: 1px solid rgba(255, 0, 0, 0.446);
   }
@@ -178,7 +181,7 @@ let lat;
 (function () {
   const map = initMap();
   initSearchForm(function (results) {
-    const firstResult = results[0];
+    const firstResult = results[0];    
     const marker = new mapboxgl.Marker()
       .setLngLat(firstResult.geometry.coordinates)
       .addTo(map);
@@ -188,7 +191,7 @@ let lat;
     lng=longitud
     lat=latitude
     state.setReportLocation(lng,lat)
-
+    
     // fetch("/comercios-cerca-de?lat=" + lat +"&lng="+lng).then((res)=>{return res.json()}).then((results)=>{
     //   for (const comercio of results) {
     //     const {lat, lng} = comercio._geoloc

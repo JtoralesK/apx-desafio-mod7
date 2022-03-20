@@ -1,6 +1,7 @@
 import * as sgMail from "@sendgrid/mail";
 
 export async function sendEmailToUser(userEmail, name, newLocation, numeroDelUsuario) {
+    console.log(userEmail);
     
     await sgMail.setApiKey(process.env.API_KEY_SENDGRIND);
     const msg = {
