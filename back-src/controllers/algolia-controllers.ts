@@ -4,13 +4,12 @@ import { index } from "../lib/algolia/algolia"
 import { User,Auth,Report } from "../model";
 import * as crypto from"crypto"
 import * as jwt from"jsonwebtoken"
-
+import {getResult}from"../components/getResults"
 
 export async function TodosLosReportes(){
     const data=await Report.findAll({})
-    console.log(data);
-    
-    return data
+    const [result,error]= await getResult(data)    
+    return  [result,error]
 }
 export async function unReporte(number:number){
   
@@ -19,7 +18,8 @@ export async function unReporte(number:number){
     },
     })
 
-    return usersReports
+    const [result,error]= await getResult(usersReports)    
+    return  [result,error]
   
 
 }
@@ -92,12 +92,12 @@ const dataMasImage = {
         console.log("salio mal");
         
       })
-return dataActualiza
+      const [result,error]= await getResult(dataActualiza)    
+      return  [result,error]
   }else{
-    console.log("else");
     
   const dataActualiza=await Report.update(data,{where:{id}})
-
+  
   const user=await User.findByPk(idUser)
   const dataMasEmail = {
    petName :data.petName,
@@ -115,22 +115,20 @@ return dataActualiza
        console.log("salio mal");
        
      })
-     return dataActualiza
+     const [result,error]= await getResult(dataActualiza)    
+    return  [result,error]
   }
  
 }
 
 export async function reportesDeUnUsuario(id:number){
-    // const user= await User.create({
-    //   first_name:"javierApx"
-    // })
+ 
     const usersReports = await Report.findAll({where:{
       userId:id,
     },
-    // include:[User]
     })
-     return usersReports
-    
+     const [result,error]= await getResult(usersReports)    
+    return  [result,error]
 }
 export async function reporteCerca(lng:number,lat:number){
  
@@ -138,8 +136,8 @@ export async function reporteCerca(lng:number,lat:number){
     aroundLatLng:[lat,lng].join(","),
     aroundRadius:20000
   })
-
- return hits
+  const [result,error]= await getResult(hits)    
+  return  [result,error]
   
 }
 export async function eliminateMascot( idReport:number) {

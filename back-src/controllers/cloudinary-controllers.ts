@@ -1,6 +1,8 @@
 import { cloudinary } from "../lib/cloudinary/connection"
 import { index } from "../lib/algolia/algolia"
 import { User,Auth,Report } from "../model";
+import {getResult}from"../components/getResults"
+
 export async function reportarUnaMacota(userId:number,data){
     
     if(data.url && data.lat!=false && data.lng!=false ){
@@ -43,7 +45,8 @@ export async function reportarUnaMacota(userId:number,data){
    console.log(e);
    
  })
- return  report
+ const [result,error]= await getResult(report)    
+ return  [result,error]
     }else{
       console.log("no entro");
       

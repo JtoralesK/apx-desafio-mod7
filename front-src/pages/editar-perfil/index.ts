@@ -18,6 +18,7 @@ class PerfilEditable extends HTMLElement{
    render(){
        const style = document.createElement("style")
        const cs = state.getState()
+      console.log(cs.me);
       
        const email=cs.me.email
        const usuario=cs.me.name

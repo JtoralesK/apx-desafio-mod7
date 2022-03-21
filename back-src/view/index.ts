@@ -23,7 +23,6 @@ app.use(express.json({limit:"50mb"}))
 
 
 app.post("/auth",async(req,res)=>{
-  const {email,first_name,password,birthday}=req.body
   if(req.body){
     const datos = await colocaDatos(req.body,"auth")
    res.json(datos)
@@ -48,11 +47,13 @@ function authMiddelwire(req,res,next){
     const data = jwt.verify(token,process.env.SECRET_WORD)
     req._user=data
     next()
-  }catch(e){
-    res.status(401).json({error:"true"})
+  }catch(error){
+    res.json({error:true})
   }
-
+  
 }
+
+ 
 app.get("/me",authMiddelwire,async(req,res)=>{
   
  const user=await me(req._user.id) 
@@ -61,6 +62,7 @@ app.get("/me",authMiddelwire,async(req,res)=>{
 
 
 app.get("/user",authMiddelwire,async(req,res)=>{
+  console.log(req._user.id);
   
   const user=await meConfirm(req._user.id) 
   res.json(user)

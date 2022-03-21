@@ -3,6 +3,8 @@ import { cloudinary } from "../lib/cloudinary/connection"
 import { User,Auth,Report } from "../model";
 import * as crypto from"crypto"
 import * as jwt from"jsonwebtoken"
+import {getResult}from"../components/getResults"
+
 function getSHA256ofJSON (text:string){
     return crypto.createHash('sha256').update(text).digest('hex')
   }
@@ -41,7 +43,9 @@ if(email && password && fullname ){
     }
     
   });
-  return user
+  
+  const [result,error]= await getResult(user)    
+  return  [result,error]
 }else{
     return {error:"faltan datos"}
     
@@ -70,15 +74,15 @@ async function authToken(email:string,password:string){
 }
 export async function me(id:number){
   const userConfimardo=await User.findByPk(id)
-  
-  return userConfimardo
-  
+    
+  const [result,error]= await getResult(userConfimardo)    
+  return  [result,error]
 }
 export async function meConfirm(id:number){
   const userConfimardo=await User.findByPk(id)
-  if(userConfimardo){
-    return {error:false}
-  }
+      
+  const [result,error]= await getResult(userConfimardo)    
+  return  [result,error]
   
 }
 export async function actualizarPerfilUsuario(body,id:number){
@@ -95,15 +99,14 @@ export async function actualizarPerfilUsuario(body,id:number){
 
   if(body.email){
     console.log(1,body);
-    const perfilActualizadoAuth=await Auth.update({email:body.email},{where:{ id}})
-    console.log(perfilActualizadoAuth);
-    
-    return perfilActualizadoAuth
-    
+    const perfilActualizadoAuth=await Auth.update({email:body.email},{where:{ id}})    
+        
+  const [result,error]= await getResult(perfilActualizadoAuth)    
+  return  [result,error]
   }else{
     console.log("else");
-
-    return perfilActualizado
+    const [result,error]= await getResult(perfilActualizado)    
+  return  [result,error]
   }
  
   

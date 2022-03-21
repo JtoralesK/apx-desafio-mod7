@@ -304,12 +304,12 @@ const state={
 
         }).then(response => response.json())
         .then(data => {
-          if(data.fullname && data.createdAt){
-            console.log(data.fullname && data.createdAt);
-            cs.me.name=data.fullname 
-            cs.me.email=data.email 
-            cs.dataRegistro.created=data.createdAt
-          }if(data.error){
+          
+          if(data[0]){
+            cs.me.name=data[0].fullname 
+            cs.me.email=data[0].email 
+            // cs.dataRegistro.created=data.createdAt
+          }if(data[1]){
             console.log(data.error);
             cs.error.usuario="error"
 
@@ -332,10 +332,20 @@ const state={
 
         }).then(response => response.json())
         .then(data => {
-          
-          cs.dataRegistro.created=data.error
-          this.setState(cs)  
-          callback()       
+          if(data[0]){
+            cs.dataRegistro.created=false
+            this.setState(cs)  
+            callback() 
+          }if(data[1]){
+            console.log("algo ocurrio");
+            
+          }
+          if(data.error){
+            cs.dataRegistro.created=true
+            this.setState(cs)  
+            callback()
+          }
+               
         });
         
       },
@@ -383,9 +393,16 @@ const state={
         }).then(response => response.json())
         .then(data => {
           console.log(data);
-          
-           cs.me.reports=data
-           
+          if(data[0]){
+            console.log("todo bien ");
+
+            cs.me.reports=data[0]
+
+          }if(data[1]){
+            console.log("ocurrio algo");
+            
+          }
+
            this.setState(cs)  
           callback()       
         });
@@ -441,9 +458,15 @@ const state={
         }
       }).then((r)=>{return r.json()}).then((e)=>
       {
-        cs.me.reportsCercanos=e
-        this.setState(cs)  
-          callback()  
+        if(e[0]){
+          cs.me.reportsCercanos=e[0]
+          this.setState(cs)  
+            callback() 
+        }if(e[1]){
+          console.error("algo salio mal");
+          
+        }
+       
       })
     }, emailEnviar(callback){
       const cs = this.getState()
