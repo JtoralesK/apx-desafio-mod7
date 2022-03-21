@@ -374,15 +374,11 @@ const state={
         }).then(response => response.json())
         .then(data => {
           
-         console.log(data);
-         
-          // this.setState(cs)  
           callback()       
         });
         
       }, obtieneMisReportes(callback){        
         const cs = this.getState()
-        console.log(cs.me.token);
         
         fetch(API_BASE_URL+"/me/reportes",{
           headers:{
@@ -431,11 +427,11 @@ const state={
       {
         console.log(e);
         
-        if(e.error){
+        if(e[1]){
           cs.error.confirmarUbicacion=e.error
       
         }
-        if(e.id){
+        if(e[0]){
           cs.me.error=true
 
           this.obtieneMisReportes(()=>{
