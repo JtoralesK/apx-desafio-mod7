@@ -13,7 +13,8 @@ class MascotasCercanas extends HTMLElement{
 
     reports.map((e)=>{
       const  petName =  e.petName
-      const button = '.'+ petName
+      const button = '.boton'+ petName
+      console.log(button);
       
       const avisar = document.querySelector(button)
       avisar.addEventListener("click",()=>{
@@ -90,7 +91,7 @@ class MascotasCercanas extends HTMLElement{
         <h3 class="location_clone">${e.location}</h3>
         <div class="misma">
         <h1 class="title_clone">${e.petName}</h1>
-        <button class="${e.petName} lovi">Lo vi</button>
+        <button class="${"boton"+e.petName} lovi">Lo vi</button>
         </div>
         </div>
         ` 
@@ -187,6 +188,8 @@ transition: all 0.25s;
 text-align: center;
 position: static;
 z-index: 1;
+display: inline-table;
+
 }
  .servicios_card:hover {
   transform: translateY(8px);

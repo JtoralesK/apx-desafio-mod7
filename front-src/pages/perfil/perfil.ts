@@ -4,19 +4,14 @@ import {state} from"../../state"
 class Perfil extends HTMLElement{
     connectedCallback(){
         this.render()
-        const button0 = document.querySelector(".button0")
-     const button = document.querySelector(".button")
-     button0.addEventListener("click",()=>{
+        const buttonEditar = document.querySelector(".buttonEditar")
+     buttonEditar.addEventListener("click",()=>{
           Router.go("/editarPerfil")
           console.log("editar");
           
     })
 
-      button.addEventListener("click",()=>{
-        console.log("cerrar secion");
-
-          state.setCuenta()
-      })
+     
 
       
    }
@@ -33,7 +28,7 @@ class Perfil extends HTMLElement{
       <h1 class="miPerfil">Mi perfil</h1>
       <p>Usuario:${usuario}</p>
       <p>Email:${email}</p>
-      <button class="button0">Editar Perfil</button>
+      <button class="buttonEditar">Editar Perfil</button>
       </div>
       <section>
       <div class="div-button">
@@ -70,6 +65,13 @@ class Perfil extends HTMLElement{
             margin: 0 auto;
         }
     `  
+    const button = document.querySelector(".button")
+
+    button.addEventListener("click",()=>{
+        console.log("cerrar secion");
+
+          state.setCuenta()
+      })
 
     this.appendChild(style)
    }

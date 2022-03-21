@@ -87,6 +87,7 @@ class MascotasReportadas extends HTMLElement{
       margin:0;
 
   }
+  
   .sinMascotas{
     color:red;
   }
@@ -105,14 +106,12 @@ class MascotasReportadas extends HTMLElement{
     margin:20px;
     text-align:center;
   }
-  @media (min-width:678px){
-   .results{
-    display:flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    padding:20px;
-   }
-  }
+ 
+ .results{
+   margin:0 auto;
+   height:100vh;
+   width:100%;
+ }
 .content-h3-title {
   margin: 0px;
   padding-top: 17px;
@@ -126,6 +125,7 @@ class MascotasReportadas extends HTMLElement{
 }
 
  .servicios_card {
+  display: inline-table;
 background-color: #F5F3EE;
 width:340px;
 height: 220px;
