@@ -8,10 +8,13 @@ class Perfil extends HTMLElement{
      const button = document.querySelector(".button")
      button0.addEventListener("click",()=>{
           Router.go("/editarPerfil")
+          console.log("editar");
+          
     })
 
       button.addEventListener("click",()=>{
-          
+        console.log("cerrar secion");
+
           state.setCuenta()
       })
 
@@ -31,11 +34,12 @@ class Perfil extends HTMLElement{
       <p>Usuario:${usuario}</p>
       <p>Email:${email}</p>
       <button class="button0">Editar Perfil</button>
-      <button class="button">Cerrar Secion</button>
-
       </div>
       <section>
-     
+      <div class="div-button">
+      <button class="button">Cerrar Secion</button>
+      </div>
+
       `
     style.innerHTML=`
     *{
@@ -43,7 +47,9 @@ class Perfil extends HTMLElement{
       margin:0;
     }
     .button{
-        margin-top:15px;
+        margin-top:25px;
+       width:100%;
+       color:red;
     }
     .miPerfil{
         text-align:center;
@@ -59,7 +65,10 @@ class Perfil extends HTMLElement{
             font-size:32px;
            
         }
-
+        .div-button{
+            width:300px;
+            margin: 0 auto;
+        }
     `  
 
     this.appendChild(style)

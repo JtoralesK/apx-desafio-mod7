@@ -46,17 +46,20 @@ class ReportCambiado extends HTMLElement{
 
    render(){
        const cs = state.getState()
-        const reportInfo = cs.me.reports
-        const numberReport = cs.editar.report
+        let numberReport = cs.editar.report
+        const array = cs.me.reports.map((r)=>{return r})
         
         function report(){
-         return reportInfo.find((e)=>{
-           return e.id=numberReport
+         return array.find((e)=>{
+           
+           if(e.id==numberReport){
+            return e
+           }
           })
           
         }
-        report()
      const name= report()
+     console.log(name);
      
 
        const style = document.createElement("style")

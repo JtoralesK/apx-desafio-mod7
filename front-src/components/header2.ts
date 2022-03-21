@@ -45,6 +45,7 @@ export class Headeer extends HTMLElement{
       } else {
         menu.classList.toggle("mostrar")
       }
+      state.setNumberReportEditado()
       Router.go("/")
       
     })
@@ -52,6 +53,8 @@ export class Headeer extends HTMLElement{
 
 
     mascotasReportadas.addEventListener("click",()=>{
+      state.setNumberReportEditado()
+
       if (menu.classList.contains("mostrar")) {
         menu.classList.remove("mostrar")
 
@@ -76,6 +79,8 @@ export class Headeer extends HTMLElement{
     
     })
     reportarMascotas.addEventListener("click",()=>{
+      state.setNumberReportEditado()
+
       if (menu.classList.contains("mostrar")) {
         menu.classList.remove("mostrar")
 
@@ -99,6 +104,8 @@ export class Headeer extends HTMLElement{
      
      })
      mascotasCercaTuyo.addEventListener("click",()=>{
+      state.setNumberReportEditado()
+
       if (menu.classList.contains("mostrar")) {
         menu.classList.remove("mostrar")
 
@@ -126,6 +133,8 @@ export class Headeer extends HTMLElement{
       })
      })
      perfil.addEventListener("click",()=>{
+      state.setNumberReportEditado()
+
       if (menu.classList.contains("mostrar")) {
         menu.classList.remove("mostrar")
 

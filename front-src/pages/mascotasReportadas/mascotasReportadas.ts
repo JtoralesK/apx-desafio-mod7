@@ -14,18 +14,21 @@ class MascotasReportadas extends HTMLElement{
       
       const reports = cs.me.reports
       reports.map((e)=>{
-        const  petName =e.petName+e.id+e.user_id
+        
+        const  petName ="boton"+e.id
         const button = '.'+ petName
         
         const avisar = document.querySelector(button)
-        
-        avisar.addEventListener("click",()=>{
-          console.log(e.id);
-          
-          state.setNumberReport(e.id,()=>{
-            Router.go("/cambiar")
+        if(avisar){
+          avisar.addEventListener("click",()=>{
+
+            state.setNumberReport(e.id,()=>{
+              Router.go("/cambiar")
+              //
+            })
           })
-        })
+        }
+      
         
         
   
@@ -34,19 +37,13 @@ class MascotasReportadas extends HTMLElement{
    }
 
    render(){
-     
        const style = document.createElement("style")
-  
        const elemento:any = document.querySelector(".results-item-template")
        const sinMascotas:HTMLElement = document.querySelector(".sinMascotas")
 
        const cs = state.getState()
        const reports = cs.me.reports
       
-       
-       reports.filter((e)=>{
-         
-       })
        function verificador(){
         if(reports[0]){
           return true
@@ -70,7 +67,7 @@ class MascotasReportadas extends HTMLElement{
   
         <div class="misma">
         <h1 class="title_clone">${e.petName}</h1>
-        <button class="${e.petName+e.id+e.user_id} editar">Editar</button>
+        <button class="${"boton"+e.id} editar">Editar</button>
         </div>
   
         </div>
@@ -165,7 +162,7 @@ z-index: 1;
   font-family: 'Baloo Thambi 2', cursive;
   text-align:right;
 }
-}
+
 .servicios_card-p {
   padding: 0 1rem;
   font-size: 17px;
@@ -196,8 +193,8 @@ z-index: 1;
 
     `  
   
-    this.appendChild(style)
+    this.appendChild(style);
    }
   
-}
+  }
 customElements.define("mascotas-el",MascotasReportadas)
