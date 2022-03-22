@@ -40,7 +40,8 @@ const state={
        },
        error:{
          usuario:"",
-         confirmarUbicacion:""
+         confirmarUbicacion:"",
+         usuarioCreado:""
        },
        email:{
          name:"",
@@ -122,7 +123,9 @@ const state={
      },
      data.error={
        usuario:"",
-       confirmarUbicacion:""
+       confirmarUbicacion:"",
+       usuarioCreado:""
+
      },
      data.email={
        name:"",
@@ -162,6 +165,10 @@ const state={
       }, setErrorUbi(){
         let cs = this.getState()
         cs.error.confirmarUbicacion = ""
+        this.setState(cs) 
+      }, setErrorUserCreado(){
+        let cs = this.getState()
+        cs.error.usuarioCreado = ""
         this.setState(cs) 
       }, setBoolean(){
         let cs = this.getState()
@@ -266,8 +273,16 @@ const state={
           })
 
         }).then(response => response.json())
-        .then(data => {        
+        .then(data => {     
+          console.log(data);
+          if(data[0]){
+            
+          }if(data[1]){
+            cs.error.usuarioCreado=true
+            console.error("ya esta creado el usuario")
+          }
           callback()
+         
           
         });
       },
@@ -304,12 +319,13 @@ const state={
 
         }).then(response => response.json())
         .then(data => {
+          console.log(data);
           
           if(data[0]){
             cs.me.name=data[0].fullname 
             cs.me.email=data[0].email 
             // cs.dataRegistro.created=data.createdAt
-          }if(data[1]){
+          }if(data.error){
             console.log(data.error);
             cs.error.usuario="error"
 
@@ -446,6 +462,7 @@ const state={
     },
     reportesCerca(callback){
       const cs = this.getState()
+    console.error("reportes-cercas");
     
       
       fetch(API_BASE_URL+`/reportes-cerca-de?lat=${cs.location.lat}&lng=${cs.location.lng}`,{
@@ -463,6 +480,8 @@ const state={
           
         }
        
+      }).catch((error)=>{
+        console.error(error)
       })
     }, emailEnviar(callback){
       const cs = this.getState()

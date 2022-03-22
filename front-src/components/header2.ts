@@ -114,9 +114,11 @@ export class Headeer extends HTMLElement{
       }
       state.confirmaUser(()=>{
         const verificador =cs.dataRegistro.created
-        console.log(3);
+        console.log(3,verificador);
         
-        if(verificador==false){
+        if(verificador===false){
+          console.log("de un lado  aotros");
+
           state.reportesCerca(()=>{
             console.log("de un lado  aotros");
             

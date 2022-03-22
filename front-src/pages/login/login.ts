@@ -27,13 +27,15 @@ const formulario_register:HTMLElement  = document.querySelector(".formulario__re
 const contenedor_login_register:HTMLElement  = document.querySelector(".contenedor__login-register");
 const caja_trasera_login:HTMLElement  = document.querySelector(".caja__trasera-login");
 const caja_trasera_register:HTMLElement  = document.querySelector(".caja__trasera-register");
+const errorUsuario:HTMLElement= document.querySelector(".errorUsuarioExistente")
+
 
     //FUNCIONES
 
 
 
     function iniciarSesion(){
-        console.log(23);
+        errorUsuario.style.display="none"
         if (window.innerWidth > 850){
             formulario_login.style.display = "block";
             contenedor_login_register.style.left = "10px";
@@ -112,28 +114,38 @@ const caja_trasera_register:HTMLElement  = document.querySelector(".caja__traser
         console.log("registrado");
         state.setModeRegistoUser(()=>{
             state.pushDataRegisto(()=>{
-                 state.obtieneToken(()=>{
-                     state.meLocalstorage()
-                    state.obtieneMiData(()=>{
-                        if(typePage=="/mascotas"){
-                            state.obtieneMisReportes(()=>{
-                                Router.go("/mascotas")
-                              })
-                        }if(typePage=="/report"){
-                            Router.go("/report")
-
-                        }if(typePage=="/cerca"){
-                            state.reportesCerca(()=>{
-                                Router.go("/cerca")
-                    
-                               })
-
-                        }if(typePage=="/perfil"){
-                            Router.go("/perfil")
-
-                        }
-                    })
-                })
+                const verificadorUsuario = cs.error.usuarioCreado
+                console.log(verificadorUsuario);
+                if(verificadorUsuario==false){
+                    state.obtieneToken(()=>{
+                        state.meLocalstorage()
+                       state.obtieneMiData(()=>{
+                           if(typePage=="/mascotas"){
+                               state.obtieneMisReportes(()=>{
+                                   Router.go("/mascotas")
+                                 })
+                           }if(typePage=="/report"){
+                               Router.go("/report")
+   
+                           }if(typePage=="/cerca"){
+                               state.reportesCerca(()=>{
+                                   Router.go("/cerca")
+                       
+                                  })
+   
+                           }if(typePage=="/perfil"){
+                               Router.go("/perfil")
+   
+                           }
+                       })
+                   })
+                }else{
+                    console.error("no")
+                    const errorUsuario:HTMLElement= document.querySelector(".errorUsuarioExistente")
+                    errorUsuario.style.display="initial"
+                    state.setErrorUserCreado()
+                }
+               
                        })            
         })
     }
@@ -144,6 +156,7 @@ const caja_trasera_register:HTMLElement  = document.querySelector(".caja__traser
                     state.meLocalstorage()
                     state.obtieneMiData(()=>{
                             const verificador = cs.error.usuario
+                            console.log(verificador);
                             
                             if(verificador=="error"){
                                 const error:HTMLElement= document.querySelector(".error")
@@ -217,7 +230,10 @@ const caja_trasera_register:HTMLElement  = document.querySelector(".caja__traser
             <input type="password" placeholder="Contraseña" name="contraseña">
             <button>Regístrarse</button>
         </form>
+        <h2 class="errorUsuarioExistente">Este usuario ya exite</h2>
+
     </div>
+
 </div>
       `
     style.innerHTML=`
@@ -231,6 +247,14 @@ const caja_trasera_register:HTMLElement  = document.querySelector(".caja__traser
   .error{
       color:red;
       display:none;
+  }
+  .errorUsuarioExistente{
+    display:none;
+    color:red;
+    position:absolute;
+    margin-top:240px;
+    text-align:center;
+    margin-left:20px;
   }
   .input_password{
     margin-bottom:10px;

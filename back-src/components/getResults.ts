@@ -3,6 +3,7 @@
         const result = await asyncFunction;
         return [result,null]
     }catch(error){
+        console.error(error)
             return[null,error]
     }
 }

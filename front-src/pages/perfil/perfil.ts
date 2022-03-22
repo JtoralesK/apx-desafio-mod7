@@ -32,7 +32,7 @@ class Perfil extends HTMLElement{
       </div>
       <section>
       <div class="div-button">
-      <button class="button">Cerrar Secion</button>
+      <button id="cerrar"class="button">Cerrar Secion</button>
       </div>
 
       `
@@ -65,7 +65,7 @@ class Perfil extends HTMLElement{
             margin: 0 auto;
         }
     `  
-    const button = document.querySelector(".button")
+    const button = document.querySelector("#cerrar")
 
     button.addEventListener("click",()=>{
         console.log("cerrar secion");

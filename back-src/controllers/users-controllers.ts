@@ -33,19 +33,26 @@ if(email && password && fullname ){
     defaults:datosCompletos
     
   });
- 
-  const [auth, authCreated] = await Auth.findOrCreate({
-    where: {  user_id:user.get("id")},
-    defaults: {
-      password:getSHA256ofJSON(password),
-      email,
-      user_id:user.get("id")
-    }
+  if(created==true){
+    const [auth, authCreated] = await Auth.findOrCreate({
+      where: {  user_id:user.get("id")},
+      defaults: {
+        password:getSHA256ofJSON(password),
+        email,
+        user_id:user.get("id")
+      }
+      
+    });
     
-  });
-  
-  const [result,error]= await getResult(user)    
-  return  [result,error]
+    const [result,error]= await getResult(user)    
+    return  [result,error]
+    
+  }else{
+    return  [null,{error:"ya estaba creado"}]
+    
+  }
+ 
+ 
 }else{
     return {error:"faltan datos"}
     
