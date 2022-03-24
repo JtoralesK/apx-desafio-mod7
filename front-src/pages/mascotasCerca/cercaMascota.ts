@@ -14,13 +14,14 @@ class MascotasCercanas extends HTMLElement{
     reports.map((e)=>{
       const  petName =  e.petName
       const button = '.boton'+ petName
-      console.log(button);
-      
       const avisar = document.querySelector(button)
-      avisar.addEventListener("click",()=>{
-        ventana.style.display="initial"
-
-      })
+      if(avisar){
+        avisar.addEventListener("click",()=>{
+          ventana.style.display="initial"
+  
+        })
+      }
+     
       
       form.addEventListener("submit",(event)=>{
         event.preventDefault()
