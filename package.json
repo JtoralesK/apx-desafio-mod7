@@ -21,6 +21,7 @@
     "dotenv": "^14.2.0",
     "dropzone": "^6.0.0-beta.2",
     "express": "^4.17.2",
+    "heroku": "^7.59.4",
     "jsonwebtoken": "^8.5.1",
     "mapbox": "^1.0.0-beta10",
     "mapbox-gl": "^2.7.0",

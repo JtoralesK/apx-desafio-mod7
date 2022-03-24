@@ -45,7 +45,9 @@ export async function reportarUnaMacota(userId:number,data){
    console.log(e);
    
  })
- const [result,error]= await getResult(report)    
+ const [result,error]= await getResult(report)   
+ console.error(error)
+ 
  return  [result,error]
     }else{
       console.log("no entro");

@@ -44,7 +44,9 @@ if(email && password && fullname ){
       
     });
     
-    const [result,error]= await getResult(user)    
+    const [result,error]= await getResult(user)   
+    console.error(error)
+ 
     return  [result,error]
     
   }else{
@@ -82,13 +84,17 @@ async function authToken(email:string,password:string){
 export async function me(id:number){
   const userConfimardo=await User.findByPk(id)
     
-  const [result,error]= await getResult(userConfimardo)    
+  const [result,error]= await getResult(userConfimardo)  
+  console.error(error)
+  
   return  [result,error]
 }
 export async function meConfirm(id:number){
   const userConfimardo=await User.findByPk(id)
       
-  const [result,error]= await getResult(userConfimardo)    
+  const [result,error]= await getResult(userConfimardo)   
+  console.error(error)
+ 
   return  [result,error]
   
 }
@@ -108,10 +114,13 @@ export async function actualizarPerfilUsuario(body,id:number){
     console.log(1,body);
     const perfilActualizadoAuth=await Auth.update({email:body.email},{where:{ id}})    
         
-  const [result,error]= await getResult(perfilActualizadoAuth)    
+  const [result,error]= await getResult(perfilActualizadoAuth) 
+  console.error(error)
+   
   return  [result,error]
   }else{
     console.log("else");
+    
     const [result,error]= await getResult(perfilActualizado)    
   return  [result,error]
   }
