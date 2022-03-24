@@ -462,6 +462,7 @@ const state={
     },
     reportesCerca(callback){
       const cs = this.getState()
+    console.log(cs.location.lat,cs.location.lng);
     
       
       fetch(API_BASE_URL+`/reportes-cerca-de?lat=${cs.location.lat}&lng=${cs.location.lng}`,{
@@ -470,6 +471,8 @@ const state={
         }
       }).then((r)=>{return r.json()}).then((e)=>
       {
+        console.log(e);
+        
         if(e[0]){
           cs.me.reportsCercanos=e[0]
           this.setState(cs)  
