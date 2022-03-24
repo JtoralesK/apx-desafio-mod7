@@ -462,7 +462,6 @@ const state={
     },
     reportesCerca(callback){
       const cs = this.getState()
-    console.error("reportes-cercas");
     
       
       fetch(API_BASE_URL+`/reportes-cerca-de?lat=${cs.location.lat}&lng=${cs.location.lng}`,{
@@ -577,7 +576,7 @@ const state={
     },
     //user location
 
-    getCurrentUbication() {
+    getCurrentUbication(callback) {
       const cs = this.getState()
       navigator.geolocation.getCurrentPosition((position) => {
         const lat = position.coords.latitude;
@@ -588,6 +587,7 @@ const state={
 
         
       });
+      callback()
     }
 }
 

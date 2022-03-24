@@ -12,10 +12,12 @@ class MascotasCercanas extends HTMLElement{
 
 
     reports.map((e)=>{
-      const  petName =  e.petName
-      const button = '.boton'+ petName
+      
+      const  petName ="boton"+e.objectID
+      const button = '.'+ petName
       const avisar = document.querySelector(button)
-      if(avisar){
+      
+      if(avisar){        
         avisar.addEventListener("click",()=>{
           ventana.style.display="initial"
   
@@ -92,7 +94,7 @@ class MascotasCercanas extends HTMLElement{
         <h3 class="location_clone">${e.location}</h3>
         <div class="misma">
         <h1 class="title_clone">${e.petName}</h1>
-        <button class="${"boton"+e.petName} lovi">Lo vi</button>
+        <button class="${"boton"+e.objectID} lovi">Lo vi</button>
         </div>
         </div>
         ` 

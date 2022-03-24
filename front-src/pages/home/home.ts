@@ -7,25 +7,7 @@ class Home extends HTMLElement{
       const huella:HTMLElement = document.querySelector(".huella")
       const page_home:HTMLElement = document.querySelector(".page_home")
       const body:HTMLElement = document.querySelector(".body")
-      const reportarMascotas = document.querySelector(".button")
-      const cs = state.getState()
-      reportarMascotas.addEventListener("click",()=>{
-        console.log(12452);
-        
-        state.confirmaUser(()=>{
-          const verificador =cs.dataRegistro.created
-          
-          if(verificador==false){
-           Router.go("/cerca")
-          }else{
-            state.setPage("/cerca",()=>{
-              Router.go("/login")
-            })
-          }
-  
-        })
-       
-       })
+     
    }
 
    render(){
@@ -49,7 +31,6 @@ class Home extends HTMLElement{
         <h4 class="servicios_card-title">Ayudando a encontrarlos</h4>
         <p class="servicios_card-p">Mascotas perdidas.Publica aquí tu mascota perdida o busca entre las que se han reportado como perdidas.</p>
         </div>
-        <button class="button">ver mascotas perdidas</button>
         </div>
         
     </div>
@@ -132,7 +113,7 @@ class Home extends HTMLElement{
    .servicios_card {
   background-color: #F5F3EE;
   width:340px;
-  height: 550px;
+  height: 420px;
   border-radius: 15px;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
   overflow: hidden;
@@ -171,31 +152,7 @@ class Home extends HTMLElement{
     color:#989797;
 
   }
-  .button{
-    background-color: #2c4939;
-    box-shadow: inset 9px 0px 0px 0px #2E8B57;
-    border: none;
-    color: #fff;
-    display: inline-block;
-    font-family: 'Baloo Thambi 2', cursive;
-    font-size: 14px;
-    transition: all .3s ease-in-out;
-    border-radius: 25px;
-    margin-top: 10px;
-    letter-spacing: 0.1px;
-    line-height: 1em;
-    padding: 20px 30px;
-    text-transform: uppercase;
-  }
-  .button:hover{
-    background-color: #2c4900;
-
-  }
-  
-
-
-
-
+ 
    
     `
    

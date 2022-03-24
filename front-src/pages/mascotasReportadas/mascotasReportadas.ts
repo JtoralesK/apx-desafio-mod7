@@ -19,6 +19,8 @@ class MascotasReportadas extends HTMLElement{
         const button = '.'+ petName
         
         const avisar = document.querySelector(button)
+        console.log("lala",avisar);
+
         if(avisar){
           avisar.addEventListener("click",()=>{
 

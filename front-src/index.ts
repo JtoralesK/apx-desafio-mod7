@@ -15,7 +15,7 @@ import "./components/header2"
 
 function main(){
     state.init()
-    state.getCurrentUbication()
+    state.getCurrentUbication(()=>{})
     
     
 }

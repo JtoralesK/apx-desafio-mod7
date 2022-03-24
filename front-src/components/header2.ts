@@ -64,7 +64,6 @@ export class Headeer extends HTMLElement{
       state.confirmaUser(()=>{
         const verificador =cs.dataRegistro.created
         if(verificador==false){
-          console.log(1);
           
           state.obtieneMisReportes(()=>{
             Router.go("/mascotas")
@@ -89,7 +88,6 @@ export class Headeer extends HTMLElement{
       }
       state.confirmaUser(()=>{
         const verificador =cs.dataRegistro.created
-        console.log(2);
         
 
         if(verificador==false){
@@ -114,24 +112,23 @@ export class Headeer extends HTMLElement{
       }
       state.confirmaUser(()=>{
         const verificador =cs.dataRegistro.created
-        console.log(3,verificador);
-        state.getCurrentUbication()
+        state.getCurrentUbication(()=>{
+          if(verificador==false){
+  
+            state.reportesCerca(()=>{
+              
+              Router.go("/cerca")
+  
+             })
+  
+          }else{
+            state.setPage("/cerca",()=>{
+              Router.go("/login")
+            })
+          }
+        })
 
-        if(verificador===false){
-          console.log("de un lado  aotros");
-
-          state.reportesCerca(()=>{
-            console.log("de un lado  aotros");
-            
-            Router.go("/cerca")
-
-           })
-
-        }else{
-          state.setPage("/cerca",()=>{
-            Router.go("/login")
-          })
-        }
+       
 
       })
      })
