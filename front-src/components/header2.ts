@@ -115,7 +115,8 @@ export class Headeer extends HTMLElement{
       state.confirmaUser(()=>{
         const verificador =cs.dataRegistro.created
         console.log(3,verificador);
-        
+        state.getCurrentUbication()
+
         if(verificador===false){
           console.log("de un lado  aotros");
 
