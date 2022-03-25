@@ -23,8 +23,12 @@ export async function reportarUnaMacota(userId:number,data){
     cellphone:data.cellphone,
     user_id:userId
   }
-  const user = await User.findByPk(updateData.user_id)
-  const report=await Report.create(updateData);
+  const user = await User.findByPk(updateData.user_id).catch((err)=>{
+    console.error(err)
+  })
+  const report=await Report.create(updateData).catch((err)=>{
+    console.error(err)
+  })
 
     
     

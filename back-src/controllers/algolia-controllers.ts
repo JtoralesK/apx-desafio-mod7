@@ -73,9 +73,13 @@ const dataMasImage = {
 }
 
 
-   const dataActualiza=await Report.update(dataMasImage,{where:{id}})
+   const dataActualiza=await Report.update(dataMasImage,{where:{id}}).catch((err)=>{
+    console.error(err)
+  })
 
-   const user=await User.findByPk(idUser)
+   const user=await User.findByPk(idUser).catch((err)=>{
+    console.error(err)
+  })
    const dataMasEmail = {
     petName :data.petName,
     location:data.location,
@@ -102,7 +106,9 @@ const dataMasImage = {
     
   const dataActualiza=await Report.update(data,{where:{id}})
   
-  const user=await User.findByPk(idUser)
+  const user=await User.findByPk(idUser).catch((err)=>{
+    console.error(err)
+  })
   const dataMasEmail = {
    petName :data.petName,
    location:data.location,

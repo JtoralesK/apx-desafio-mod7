@@ -32,7 +32,9 @@ if(email && password && fullname ){
     where: { email },
     defaults:datosCompletos
     
-  });
+  }).catch((err)=>{
+    console.error(err)
+  })
   if(created==true){
     const [auth, authCreated] = await Auth.findOrCreate({
       where: {  user_id:user.get("id")},
@@ -42,7 +44,9 @@ if(email && password && fullname ){
         user_id:user.get("id")
       }
       
-    });
+    }).catch((err)=>{
+      console.error(err)
+    })
     
     const [result,error]= await getResult(user)   
     console.error(error)
@@ -69,8 +73,9 @@ async function authToken(email:string,password:string){
         },
        
         
-      });
-    
+      }).catch((err)=>{
+        console.error(err)
+      });    
       if(auth){
         var token = jwt.sign({ id:auth.get("user_id") }, process.env.SECRET_WORD)
     
