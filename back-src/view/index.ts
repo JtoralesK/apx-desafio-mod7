@@ -12,7 +12,7 @@ import * as path from "path"
 import { index } from "../lib/algolia/algolia"
 
 const rutaRelativa = path.resolve(__dirname, "../../dist/index.html");
-const port = process.env.PORT //3005
+const port = process.env.PORT || 3005
 
 const app = express()
 app.use(cors())
