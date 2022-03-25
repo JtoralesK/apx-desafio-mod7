@@ -95,7 +95,7 @@ const dataMasImage = {
         
       })
       const [result,error]= await getResult(dataActualiza)   
-      console.error(error,"algo salio mal");
+      console.error(error);
  
       return  [result,error]
   }else{
@@ -120,7 +120,7 @@ const dataMasImage = {
        
      })
      const [result,error]= await getResult(dataActualiza)  
-     console.error(error,"algo salio mal");
+     console.error(error);
   
     return  [result,error]
   }
@@ -134,7 +134,7 @@ export async function reportesDeUnUsuario(id:number){
     },
     })
      const [result,error]= await getResult(usersReports)  
-     console.error(error,"algo salio mal");
+     console.error(error);
   
     return  [result,error]
 }
@@ -145,7 +145,7 @@ export async function reporteCerca(lng:number,lat:number){
     aroundRadius:20000
   })
   const [result,error]= await getResult(hits)  
-  console.error(error,"algo salio mal");
+  console.error(error);
   
   return  [result,error]
   
