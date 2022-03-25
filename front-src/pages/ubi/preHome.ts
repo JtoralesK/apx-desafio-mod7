@@ -62,7 +62,7 @@ class Prehome extends HTMLElement{
     .button{
         width:100%;
         height:50px;
-        margin-top:350px;
+        margin-top:300px;
         font-size:32px;
         border:none;
         border-radius:3px;
