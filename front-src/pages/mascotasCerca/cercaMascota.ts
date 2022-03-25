@@ -45,7 +45,7 @@ class MascotasCercanas extends HTMLElement{
                 const enviadoConExito:HTMLElement = document.querySelector(".avisarEmailEnviado")
                 enviadoConExito.style.display="initial"
                 setTimeout(() => {
-                  Router.go("/")
+                  Router.go("/home")
                  }, 2000);
               }
             })

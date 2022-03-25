@@ -112,7 +112,6 @@ export class Headeer extends HTMLElement{
       }
       state.confirmaUser(()=>{
         const verificador =cs.dataRegistro.created
-        state.getCurrentUbication(()=>{
           if(verificador==false){
   
             state.reportesCerca(()=>{
@@ -126,7 +125,7 @@ export class Headeer extends HTMLElement{
               Router.go("/login")
             })
           }
-        })
+        
 
        
 

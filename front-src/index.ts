@@ -8,6 +8,7 @@ import "./pages/mascotasCerca/cercaMascota"
 import "./pages/perfil/perfil"
 import "./pages/editar-eleminar/index"
 import "./pages/editar-perfil/index"
+import "./pages/ubi/preHome"
 //components
 import "./components/header2"
 
@@ -15,7 +16,6 @@ import "./components/header2"
 
 function main(){
     state.init()
-    state.getCurrentUbication(()=>{})
     
     
 }

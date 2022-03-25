@@ -128,12 +128,11 @@ const errorUsuario:HTMLElement= document.querySelector(".errorUsuarioExistente")
                                Router.go("/report")
    
                            }if(typePage=="/cerca"){
-                               state.getCurrentUbication(()=>{
                                 state.reportesCerca(()=>{
                                     Router.go("/cerca")
                         
                                    })
-                               })
+                               
                              
    
                            }if(typePage=="/perfil"){

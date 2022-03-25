@@ -99,10 +99,6 @@ const state={
           token:"",
           created:""
       },
-      data.location={
-        lng:"",
-        lat:""
-      },
      data.report={
       petName:"",
       location:"",
@@ -601,19 +597,7 @@ const state={
     },
     //user location
 
-    getCurrentUbication(callback) {
-      const cs = this.getState()
-      navigator.geolocation.getCurrentPosition((position) => {
-        const lat = position.coords.latitude;
-        const lng = position.coords.longitude;
-        cs.location.lat=lat
-        cs.location.lng=lng
-        this.setState(cs)
-
-        
-      });
-      callback()
-    }
+    
 }
 
 export {state}
