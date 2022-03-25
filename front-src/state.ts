@@ -284,6 +284,8 @@ const state={
           callback()
          
           
+        }).catch((error)=>{
+          console.error(error)
         });
       },
 
@@ -306,7 +308,9 @@ const state={
          cs.me.token=data.token
          callback()
           this.setState(cs) 
-        })
+        }).catch((error)=>{
+          console.error(error)
+        });
           
           
       },
@@ -335,6 +339,8 @@ const state={
           
           this.setState(cs)  
           callback()       
+        }).catch((error)=>{
+          console.error(error)
         });
         
       },
@@ -362,6 +368,8 @@ const state={
             callback()
           }
                
+        }).catch((error)=>{
+          console.error(error)
         });
         
       },
@@ -391,6 +399,8 @@ const state={
         .then(data => {
           
           callback()       
+        }).catch((error)=>{
+          console.error(error)
         });
         
       }, obtieneMisReportes(callback){        
@@ -417,6 +427,8 @@ const state={
 
            this.setState(cs)  
           callback()       
+        }).catch((error)=>{
+          console.error(error)
         });
       },
 
@@ -457,7 +469,9 @@ const state={
         this.setState(cs)  
         callback()
 
-      })
+      }).catch((error)=>{
+        console.error(error)
+      });
 
     },
     reportesCerca(callback){
@@ -509,6 +523,8 @@ const state={
        cs.email.emailEnviado=true
          this.setState(cs)  
          callback()
+      }).catch((error)=>{
+        console.error(error)
       });
       
       
@@ -531,6 +547,8 @@ const state={
        Router.go("/mascotas")
      })
        
+    }).catch((error)=>{
+      console.error(error)
     });
     
       
@@ -558,6 +576,8 @@ const state={
       })
      
        
+    }).catch((error)=>{
+      console.error(error)
     });
     
       
@@ -573,6 +593,8 @@ const state={
        Router.go("/mascotas")
      })
        
+    }).catch((error)=>{
+      console.error(error)
     });
     
       
