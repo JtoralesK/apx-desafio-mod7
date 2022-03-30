@@ -137,7 +137,7 @@ const state={
   
         this.setState(data)
 
-        Router.go("/")
+        Router.go("/home")
       
       },
       setPage(type:Page,callback){
