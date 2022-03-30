@@ -46,7 +46,7 @@ export class Headeer extends HTMLElement{
         menu.classList.toggle("mostrar")
       }
       state.setNumberReportEditado()
-      Router.go("/")
+      Router.go("/home")
       
     })
     const cs = state.getState()
@@ -160,15 +160,12 @@ export class Headeer extends HTMLElement{
    }
 
    render(){
-    // const logoPet = require("url:../../img/logoPet.png");   
-    // const img = document.createElement("img");
-    
-    // img.setAttribute("src", logoPet);
+  
        const style = document.createElement("style")
 
       this.innerHTML=`
       <header class="nav_bar">
-      <p>icono</p>
+      <p>YourPet</p>
    <span class="menu_ventana">
      <a class="menu_link" href="#">Menu<i class="fas fa-bars"></i></a>
    </span>         

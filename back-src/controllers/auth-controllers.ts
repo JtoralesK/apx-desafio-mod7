@@ -3,7 +3,7 @@ import { cloudinary } from "../lib/cloudinary/connection"
 import { User,Auth,Report } from "../model";
 import * as crypto from"crypto"
 import * as jwt from"jsonwebtoken"
-import {getResult}from"../components/getResults"
+import {getResult}from"../components/try/getResults"
 
 function getSHA256ofJSON (text:string){
     return crypto.createHash('sha256').update(text).digest('hex')
@@ -86,23 +86,8 @@ async function authToken(email:string,password:string){
       }
     
 }
-export async function me(id:number){
-  const userConfimardo=await User.findByPk(id)
-    
-  const [result,error]= await getResult(userConfimardo)  
-  console.error(error)
-  
-  return  [result,error]
-}
-export async function meConfirm(id:number){
-  const userConfimardo=await User.findByPk(id)
-      
-  const [result,error]= await getResult(userConfimardo)   
-  console.error(error)
- 
-  return  [result,error]
-  
-}
+
+
 export async function actualizarPerfilUsuario(body,id:number){
   const respuesta:any={}
 

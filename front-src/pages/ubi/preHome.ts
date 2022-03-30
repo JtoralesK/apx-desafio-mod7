@@ -18,7 +18,8 @@ class Prehome extends HTMLElement{
             const lng = position.coords.longitude;
             cs.location.lat=lat
             cs.location.lng=lng
-            this.setState(cs)
+            
+            state.setState(cs)
         }
         function error(err) {
             console.log(err.code,err.message);

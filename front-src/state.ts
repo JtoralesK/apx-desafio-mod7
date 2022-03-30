@@ -5,7 +5,6 @@ type Page="/cerca" | "/report" | "/mascotas"| "/perfil"
 type Local="token" | "reports" 
 
 const API_BASE_URL= process.env.DB_HOST
-console.log(process.env.API_SENDGRID,API_BASE_URL );
 
 const state={
   
@@ -138,7 +137,7 @@ const state={
   
         this.setState(data)
 
-        Router.go("/home")
+        Router.go("/")
       
       },
       setPage(type:Page,callback){

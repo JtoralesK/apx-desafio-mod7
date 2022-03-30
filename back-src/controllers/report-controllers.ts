@@ -1,10 +1,9 @@
 import { where } from "sequelize/types";
 import { cloudinary } from "../lib/cloudinary/connection"
 import { index } from "../lib/algolia/algolia"
-import { User,Auth,Report } from "../model";
-import * as crypto from"crypto"
-import * as jwt from"jsonwebtoken"
-import {getResult}from"../components/getResults"
+import { User,Report } from "../model";
+import {getResult}from"../components/try/getResults"
+//entra conexion algolia
 
 export async function TodosLosReportes(){
     const data=await Report.findAll({})
@@ -12,21 +11,14 @@ export async function TodosLosReportes(){
     return  [result,error]
 }
 export async function unReporte(number:number){
-  
     const usersReports = await Report.findAll({where:{
       user_id:number,
     },
     })
-
-    const [result,error]= await getResult(usersReports) 
-    console.error(error,"algo salio mal");
-   
+    const [result,error]= await getResult(usersReports)    
     return  [result,error]
-  
 
 }
-
-
 
 
 function bodyparse(body,id?){
@@ -170,4 +162,64 @@ export async function eliminateMascot( idReport:number) {
   } catch (e) {
       console.error(e,"algo salio mal");
   }
+}
+
+//cloudinary
+
+export async function reportarUnaMacota(userId:number,data){
+    
+  if(data.url && data.lat!=false && data.lng!=false ){
+    console.log("entro");
+    
+     const image = await cloudinary.uploader.upload(data.url,{
+          resource_type:"image",
+          discard_original_filename:true,
+          width:1000
+      }
+);
+const updateData = {
+  petName:data.petName,
+  location:data.location,
+  lat:data.lat,
+  lng:data.lng,
+  url:image.secure_url,
+  cellphone:data.cellphone,
+  user_id:userId
+}
+const user = await User.findByPk(updateData.user_id).catch((err)=>{
+  console.error(err)
+})
+const report=await Report.create(updateData).catch((err)=>{
+  console.error(err)
+})
+
+  
+  
+index.saveObject({
+ petName: report.get("petName"),
+ url: report.get("url"),
+ location:report.get("location"),
+ cellphone: report.get("cellphone"),
+ objectID: report.get("id"),
+ userEmail:user.get("email"),
+ "_geoloc": {
+   "lat":report.get("lat"),
+   "lng":report.get("lng")
+ }
+}).then((object) => {
+ console.log(object);
+}).catch((e)=>{
+ console.log(e);
+ 
+})
+const [result,error]= await getResult(report)   
+console.error(error)
+
+return  [result,error]
+  }else{
+    console.log("no entro");
+    
+    return {error:false}
+  }
+  
 }
