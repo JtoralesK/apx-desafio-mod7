@@ -7,7 +7,6 @@ class Perfil extends HTMLElement{
         const buttonEditar = document.querySelector(".buttonEditar")
      buttonEditar.addEventListener("click",()=>{
           Router.go("/editarPerfil")
-          console.log("editar");
           
     })
 
@@ -22,6 +21,7 @@ class Perfil extends HTMLElement{
       
        const email=cs.me.email
        const usuario=cs.me.name
+       
       this.innerHTML=`
       <section class="container">
       <div class="container_perfil">

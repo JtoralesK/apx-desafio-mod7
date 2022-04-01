@@ -320,17 +320,16 @@ const state={
 
         }).then(response => response.json())
         .then(data => {
+          console.log(data);
           
-          if(data[0]){
-            cs.me.name=data[0].fullname 
-            cs.me.email=data[0].email 
+          if(data){
+            cs.me.name=data.fullname 
+            cs.me.email=data.email 
           }if(data.error){
             cs.error.usuario="error"
 
           }
-          
-
-          
+    
           this.setState(cs)  
           callback()       
         }).catch((error)=>{
@@ -348,7 +347,6 @@ const state={
 
         }).then(response => response.json())
         .then(data => {
-          console.log(data);
           
           if(data.createdAt){
             cs.dataRegistro.created=false
@@ -412,7 +410,7 @@ const state={
             cs.me.reports=data[0]
 
           }if(data[1]){
-            console.log("ocurrio algo");
+            console.error("ocurrio algo");
             
           }
 
@@ -444,7 +442,6 @@ const state={
         })
       }).then((r)=>{return r.json()}).then((e)=>
       {
-        console.log(e);
         
         if(e[1]){
           cs.error.confirmarUbicacion=e.error
@@ -506,7 +503,6 @@ const state={
 
       }).then(response => response.json())
       .then(data => {
-        console.log(data);
        
        cs.email.emailEnviado=true
          this.setState(cs)  
@@ -544,7 +540,6 @@ const state={
       const cs = this.getState()
       const name = a
       const email = b
-      console.log(name,email,cs.me.token);
       
      fetch(API_BASE_URL+"/editar-perfil",{
       
