@@ -5,10 +5,17 @@ class Perfil extends HTMLElement{
     connectedCallback(){
         this.render()
         const buttonEditar = document.querySelector(".buttonEditar")
+        const buttonCambiar = document.querySelector(".buttonPasswordChange")
+
      buttonEditar.addEventListener("click",()=>{
           Router.go("/editarPerfil")
           
     })
+    
+    buttonCambiar.addEventListener("click",()=>{
+        Router.go("/change")
+        
+  })
 
      
 
@@ -29,6 +36,7 @@ class Perfil extends HTMLElement{
       <p>Usuario:${usuario}</p>
       <p>Email:${email}</p>
       <button class="buttonEditar">Editar Perfil</button>
+      <button class="buttonPasswordChange">Cambiar contraseña</button>
       </div>
       <section>
       <div class="div-button">
@@ -45,6 +53,9 @@ class Perfil extends HTMLElement{
         margin-top:25px;
        width:100%;
        color:red;
+    }
+    .buttonPasswordChange{
+        margin-top:20px;
     }
     .miPerfil{
         text-align:center;

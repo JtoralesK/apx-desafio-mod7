@@ -1,6 +1,6 @@
 import *as express from "express"
 import *as cors from"cors"
-import { colocaDatos ,actualizarPerfilUsuario} from "../controllers/auth-controllers"
+import { colocaDatos ,actualizarPerfilUsuario,changePassword} from "../controllers/auth-controllers"
 import {me,meConfirm ,allUsers} from"../controllers/user-controllers"
 import {  TodosLosReportes, unReporte,actulizaReporte,eliminateMascot,reporteCerca,reportarUnaMacota} from "../controllers/report-controllers"
 import {sendEmailToUser} from"../lib/sendgrid/sendgrid"
@@ -33,7 +33,16 @@ app.post("/auth/token",async(req,res)=>{
   }
  
 })
+app.post("/change-password",authMiddelwire,async(req,res)=>{
+ 
+ if(req.body && req._user.id){
+  const passwordChange=await changePassword(req.body,req._user.id) ;
+  res.json(passwordChange);
+}else{
+  res.json({error:"falta datos"});
 
+}
+})
 
  
 app.get("/me",authMiddelwire,async(req,res)=>{

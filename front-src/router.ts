@@ -12,15 +12,7 @@ router.setRoutes([
   {path: '/cambiar', component: 'report-cambiado-el'},
   {path: '/editarPerfil', component: 'editar-perfil-el'},
   {path: '/editarPerfil', component: 'editar-perfil-el'},
-
-
-
-
-
-
-
-
-  
+  {path: '/change', component: 'cambiar-contraseña'},
 
 
 ]);

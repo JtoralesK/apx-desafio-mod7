@@ -53,6 +53,10 @@ const state={
         lat:undefined,
         report:0
 
+       },
+       password:{
+         error:"",
+         okay:""
        }
       
        
@@ -138,6 +142,10 @@ const state={
       report:0
 
      }
+     data.password={
+      error:"",
+      okay:""
+    }
   
         this.setState(data)
         Router.go("/")
@@ -210,6 +218,10 @@ const state={
         this.setState(cs) 
         callback()
 
+      },setObjetoPassword(){
+        let cs = this.getState()
+        cs.password.okay = ""
+        this.setState(cs) 
       },
 
       dataRegistroMiUser(fullname:string,email:string,password:string){
@@ -225,8 +237,6 @@ const state={
         data.me.email = email
         data.dataRegistro.password = password
         data.dataRegistro.mode = "iniciado"
-        console.log("iniciado");
-
         this.setState(data) 
 
       },
@@ -271,7 +281,6 @@ const state={
 
         }).then(response => response.json())
         .then(data => {     
-          console.log(data);
           if(data[0]){
             
           }if(data[1]){
@@ -320,7 +329,6 @@ const state={
 
         }).then(response => response.json())
         .then(data => {
-          console.log(data);
           
           if(data){
             cs.me.name=data.fullname 
@@ -552,7 +560,6 @@ const state={
 
     }).then(response => response.json())
     .then(data => {
-     console.log(data);
       state.obtieneMiData(()=>{
          Router.go("/perfil")
 
@@ -581,7 +588,32 @@ const state={
     });
     
       
-    },
+    },cambiarContraseña(passwordViejaConfirmar:string,passwordNueva:string,passwordNuevaConfirmar:string,callback){
+      const cs = this.getState()
+      const passwordVieja= cs.dataRegistro.password
+      
+      fetch(API_BASE_URL+"/change-password",{
+        method:"POST",
+        headers:{
+          'Authorization':`bearer ${cs.me.token}`,
+          'Content-Type': "application/json"
+  
+        },
+           body:JSON.stringify({passwordVieja,passwordViejaConfirmar,passwordNueva,passwordNuevaConfirmar})
+      }).then(response => response.json())
+      .then(data => {
+       if(data.error){
+        cs.password.error=data.error
+        this.setState(cs)  
+       }if(data[0]){
+        cs.password.okay=true
+        cs.dataRegistro.password=passwordNueva
+        this.setState(cs)  
+       }
+      
+        callback()
+      })
+    }
     //user location
 
     

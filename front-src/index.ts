@@ -9,6 +9,7 @@ import "./pages/perfil/perfil"
 import "./pages/editar-eleminar/index"
 import "./pages/editar-perfil/index"
 import "./pages/ubi/preHome"
+import "./pages/cambiar-contraseña/password"
 //components
 import "./components/header2"
 

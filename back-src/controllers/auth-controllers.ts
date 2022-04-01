@@ -118,5 +118,31 @@ export async function actualizarPerfilUsuario(body,id:number){
  
   
 }
+export async function changePassword(body,id){
+  const passwordVieja =body.passwordVieja;
+  const passwordViejaConfirmar =body.passwordViejaConfirmar;
+  const passwordNueva =body.passwordNueva;
+  const passwordNuevaConfirmar =body.passwordNuevaConfirmar;
+
+
+if(passwordVieja && passwordViejaConfirmar && passwordNueva && passwordNuevaConfirmar ){
+
+if(passwordVieja==passwordViejaConfirmar){
+
+if(passwordNueva==passwordNuevaConfirmar){
+const passwordCambiada = await Auth.update({password:hasheadora(passwordNueva)},{where:{ user_id:id}}).catch((err)=>{return err}) 
+return passwordCambiada
+}else{
+  return{error:"contraseñas nuevas no coinciden"}
+}
+
+}else{
+  return{error:"contraseña vieja incorrecta"}
+}
+ 
+}else{
+  return {error:"falta alguna password"}
+}
+}
 
 
