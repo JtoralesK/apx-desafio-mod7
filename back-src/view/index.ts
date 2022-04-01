@@ -1,14 +1,10 @@
-import {User,Auth,Report}from"../model"
-import {sequelize} from"../db/connection"
 import *as express from "express"
 import *as cors from"cors"
-import * as crypto from"crypto"
 import { colocaDatos ,actualizarPerfilUsuario} from "../controllers/auth-controllers"
-import {me,meConfirm } from"../controllers/user-controllers"
+import {me,meConfirm ,allUsers} from"../controllers/user-controllers"
 import {  TodosLosReportes, unReporte,actulizaReporte,eliminateMascot,reporteCerca,reportarUnaMacota} from "../controllers/report-controllers"
 import {sendEmailToUser} from"../lib/sendgrid/sendgrid"
 import * as path from "path"
-import { index } from "../lib/algolia/algolia"
 import {authMiddelwire}from"../components/authMiddelwire/authMiddelwire"
 const rutaRelativa = path.resolve(__dirname, "../../dist/index.html");
 const port = process.env.PORT ;
@@ -24,17 +20,16 @@ app.post("/auth",async(req,res)=>{
     const datos = await colocaDatos(req.body,"auth");
    res.json(datos);
   }else{
-    res.json({error:true});
+    res.json({error:"faltan datos"});
   }
  
 })
 app.post("/auth/token",async(req,res)=>{
-  const {email,password}=req.body;
   if(req.body){
     const datos = await colocaDatos(req.body,"auth/token");
    res.json(datos);
   }else{
-    res.json({error:true});
+    res.json({error:"faltan datos"});
   }
  
 })
@@ -42,20 +37,29 @@ app.post("/auth/token",async(req,res)=>{
 
  
 app.get("/me",authMiddelwire,async(req,res)=>{
-  
- const user=await me(req._user.id) ;
- res.json(user);
+  if(req._user.id){
+    const user=await me(req._user.id) ;
+    res.json(user);
+  }else{
+    res.json({error:"falta token"});
+
+  }
+
 })
 
 
 app.get("/user",authMiddelwire,async(req,res)=>{
-  
-  const user=await meConfirm(req._user.id) ;
-  res.json(user);
+  if(req._user.id){
+    const user=await meConfirm(req._user.id) ;
+    res.json(user);
+  }else{
+    res.json({error:"falta token"});
+  }
+ 
  })
 app.get("/all",async(req,res)=>{
-  
-  const user=await User.findAll();
+
+  const user=await allUsers();
   res.json(user);
  })
 
@@ -93,9 +97,13 @@ app.get("/me/reportes",authMiddelwire,async(req,res)=>{
   }
  })
  app.get("/reportes-cerca-de",async(req,res)=>{
- 
+ if(req.query.lng,req.query.lat){
   const cerca = await reporteCerca(req.query.lng,req.query.lat);
   res.json(cerca);
+ }else{
+   res.json({error:"falta ubicacion del usuario"})
+ }
+  
  })
 
 

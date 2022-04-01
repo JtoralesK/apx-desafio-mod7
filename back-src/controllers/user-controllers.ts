@@ -1,20 +1,29 @@
-import { User,Auth,Report } from "../model";
-import {getResult}from"../components/try/getResults"
-
+import { User } from "../model";
 export async function me(id:number){
     const userConfimardo=await User.findByPk(id)
-      
-    const [result,error]= await getResult(userConfimardo)  
-    console.error(error)
+    try{
+      return userConfimardo
+    }catch(error){
+      return error
+    }
     
-    return  [result,error]
   }
   export async function meConfirm(id:number){
     const userConfimardo=await User.findByPk(id)
-        
-    const [result,error]= await getResult(userConfimardo)   
-    console.error(error)
-   
-    return  [result,error]
+    try{
+      return userConfimardo
+    }catch(error){
+      return error
+    }   
+    
+  }
+
+  export async function allUsers(){
+    const allUsers=await User.findAll(); 
+    try{
+      return allUsers
+    }catch(error){
+      return error
+    }   
     
   }

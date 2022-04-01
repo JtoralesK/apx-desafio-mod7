@@ -32,7 +32,6 @@ class MascotasCercanas extends HTMLElement{
           const bio = target.donde.value
           const cellphone = target.cellphone.value  
           const userEmail = e.userEmail
-          console.log(2);
 
           state.setEmail(name,bio,cellphone,userEmail,()=>{
             state.emailEnviar(()=>{

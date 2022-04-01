@@ -87,8 +87,7 @@ export class Headeer extends HTMLElement{
         menu.classList.toggle("mostrar")
       }
       state.confirmaUser(()=>{
-        const verificador =cs.dataRegistro.created
-        
+        const verificador =cs.dataRegistro.created        
 
         if(verificador==false){
          Router.go("/report")
@@ -110,26 +109,11 @@ export class Headeer extends HTMLElement{
       } else {
         menu.classList.toggle("mostrar")
       }
-      state.confirmaUser(()=>{
-        const verificador =cs.dataRegistro.created
-          if(verificador==false){
-  
             state.reportesCerca(()=>{
-              
               Router.go("/cerca")
   
              })
-  
-          }else{
-            state.setPage("/cerca",()=>{
-              Router.go("/login")
-            })
-          }
-        
-
-       
-
-      })
+    
      })
      perfil.addEventListener("click",()=>{
       state.setNumberReportEditado()
@@ -142,7 +126,6 @@ export class Headeer extends HTMLElement{
       }
       state.confirmaUser(()=>{
         const verificador =cs.dataRegistro.created
-        console.log(4);
         
         if(verificador==false){
           state.obtieneMiData(()=>{

@@ -1,13 +1,16 @@
-import { where } from "sequelize/types";
 import { cloudinary } from "../lib/cloudinary/connection"
 import { index } from "../lib/algolia/algolia"
 import { User,Report } from "../model";
 import {getResult}from"../components/try/getResults"
+import {bodyparse} from"../components/objectParseado/parseador"
 //entra conexion algolia
 
 export async function TodosLosReportes(){
     const data=await Report.findAll({})
-    const [result,error]= await getResult(data)    
+    const [result,error]= await getResult(data)  
+    if(error){
+      console.log(error);
+    }  
     return  [result,error]
 }
 export async function unReporte(number:number){
@@ -15,41 +18,16 @@ export async function unReporte(number:number){
       user_id:number,
     },
     })
-    const [result,error]= await getResult(usersReports)    
+    const [result,error]= await getResult(usersReports) 
+    if(error){
+      console.log(error);
+    }     
     return  [result,error]
 
 }
 
-
-function bodyparse(body,id?){
-    const respuesta:any={}
-    if(id){
-      respuesta.objectID=id
-    }
-    if(body.petName){
-      respuesta.petName=body.petName
-    }
-    if(body.url){
-      respuesta.url=body.url
-    }
-    if(body.userEmail){
-      respuesta.userEmail=body.userEmail
-    }
-    if(body.location){
-      respuesta.location=body.location
-    }
-    if(body.lat && body.lng){
-      respuesta._geoloc={
-        lat:body.lat,
-        lng:body.lng
-      }
-    }
-    return respuesta
-  }
 export async function actulizaReporte(data,id:number,idUser:number){
   if(data.url){
-    console.log("if");
-
   const image = await cloudinary.uploader.upload(data.url,{
     resource_type:"image",
     discard_original_filename:true,
@@ -91,8 +69,9 @@ const dataMasImage = {
         
       })
       const [result,error]= await getResult(dataActualiza)   
-      console.error(error);
- 
+      if(error){
+        console.log(error);
+      }  
       return  [result,error]
   }else{
     
@@ -118,7 +97,9 @@ const dataMasImage = {
        
      })
      const [result,error]= await getResult(dataActualiza)  
-     console.error(error);
+     if(error){
+      console.log(error);
+    } 
   
     return  [result,error]
   }
@@ -132,7 +113,9 @@ export async function reportesDeUnUsuario(id:number){
     },
     })
      const [result,error]= await getResult(usersReports)  
-     console.error(error);
+     if(error){
+      console.log(error);
+    } 
   
     return  [result,error]
 }
@@ -141,11 +124,14 @@ export async function reporteCerca(lng:number,lat:number){
   const { hits } = await index.search("", {
     aroundLatLng:[lat,lng].join(","),
     aroundRadius:20000
+  }).catch((error)=>{
+    console.log(error);
+    
+    return error
   })
-  const [result,error]= await getResult(hits)  
-  console.error(error);
-  
-  return  [result,error]
+  if(hits){
+    return hits
+  }
   
 }
 export async function eliminateMascot( idReport:number) {
@@ -169,8 +155,6 @@ export async function eliminateMascot( idReport:number) {
 export async function reportarUnaMacota(userId:number,data){
     
   if(data.url && data.lat!=false && data.lng!=false ){
-    console.log("entro");
-    
      const image = await cloudinary.uploader.upload(data.url,{
           resource_type:"image",
           discard_original_filename:true,
@@ -213,7 +197,9 @@ index.saveObject({
  
 })
 const [result,error]= await getResult(report)   
-console.error(error)
+if(error){
+  console.log(error);
+} 
 
 return  [result,error]
   }else{

@@ -15,10 +15,6 @@ const state={
             token:"",
             created:""
         },
-        location:{
-          lng:"",
-          lat:""
-        },
        report:{
         petName:"",
         location:"",
@@ -35,7 +31,11 @@ const state={
         reportsCercanos:[],
         page:"",
         name:"",
-        email:""
+        email:"",
+        location:{
+          lng:"",
+          lat:""
+        }
        },
        error:{
          usuario:"",
@@ -114,7 +114,11 @@ const state={
       reportsCercanos:[],
       page:"",
       name:"",
-      email:""
+      email:"",
+      location:{
+        lng:"",
+        lat:""
+      }
      },
      data.error={
        usuario:"",
@@ -136,9 +140,7 @@ const state={
      }
   
         this.setState(data)
-
-        Router.go("/home")
-      
+        Router.go("/")
       },
       setPage(type:Page,callback){
         let cs = this.getState()
@@ -318,14 +320,11 @@ const state={
 
         }).then(response => response.json())
         .then(data => {
-          console.log(data);
           
           if(data[0]){
             cs.me.name=data[0].fullname 
             cs.me.email=data[0].email 
-            // cs.dataRegistro.created=data.createdAt
           }if(data.error){
-            console.log(data.error);
             cs.error.usuario="error"
 
           }
@@ -349,13 +348,12 @@ const state={
 
         }).then(response => response.json())
         .then(data => {
-          if(data[0]){
+          console.log(data);
+          
+          if(data.createdAt){
             cs.dataRegistro.created=false
             this.setState(cs)  
             callback() 
-          }if(data[1]){
-            console.log("algo ocurrio");
-            
           }
           if(data.error){
             cs.dataRegistro.created=true
@@ -409,9 +407,7 @@ const state={
 
         }).then(response => response.json())
         .then(data => {
-          console.log(data);
           if(data[0]){
-            console.log("todo bien ");
 
             cs.me.reports=data[0]
 
@@ -470,23 +466,20 @@ const state={
 
     },
     reportesCerca(callback){
-      const cs = this.getState()
-    console.log(cs.location.lat,cs.location.lng);
-    
+      const cs = this.getState()    
       
-      fetch(API_BASE_URL+`/reportes-cerca-de?lat=${cs.location.lat}&lng=${cs.location.lng}`,{
+      fetch(API_BASE_URL+`/reportes-cerca-de?lat=${cs.me.location.lat}&lng=${cs.me.location.lng}`,{
         headers:{
           "content-type":"application/json",
         }
       }).then((r)=>{return r.json()}).then((e)=>
       {
-        console.log(e);
         
-        if(e[0]){
-          cs.me.reportsCercanos=e[0]
+        if(e){
+          cs.me.reportsCercanos=e
           this.setState(cs)  
             callback() 
-        }if(e[1]){
+        }if(e.error){
           console.error("algo salio mal");
           
         }

@@ -21,6 +21,8 @@ class ReportCambiado extends HTMLElement{
   
         const reportarMascotas:HTMLElement = document.querySelector(".form")
         const marcarLugar:HTMLElement = document.querySelector(".marcarLugar")
+        const spinner:HTMLElement = document.querySelector(".spinner")
+
         marcarLugar.addEventListener("click",(e)=>{
           e.preventDefault()
         })
@@ -29,6 +31,7 @@ class ReportCambiado extends HTMLElement{
    
           reportarMascotas.addEventListener("submit",(e)=>{
             e.preventDefault()
+            spinner.style.display="initial"
             const target:any = e.target
             const petName = target.name.value || undefined
             const loca = target.busqueda.value || undefined
@@ -67,6 +70,8 @@ class ReportCambiado extends HTMLElement{
       this.innerHTML=`
       <script src="//api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js"></script>
       <script src="//unpkg.com/mapbox@1.0.0-beta9/dist/mapbox-sdk.min.js"></script>
+      
+      <div class="spinner">Cargando..</div>
 
       <form class="form">
       <div class="form_container">
@@ -152,6 +157,43 @@ class ReportCambiado extends HTMLElement{
     text-align:center;
     display:none;
   }
+
+  
+  .spinner {
+    display:none;
+  box-shadow: 0 0 0 5px #4c7551, inset 0 0 0 1px#4c7551;
+  position: absolute;
+  height: 20px;
+  width: 240px;
+  border-radius: 2px;
+  overflow: hidden;
+  animation:  6s linear infinite;
+  margin:15px 0 0 75px;
+}
+.spinner:before {
+  display: block;
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background-color: #0cff774d;
+  animation: load 6s linear infinite;
+}
+
+@keyframes load {
+  0% {
+    width: 0;
+  }
+  40%,
+  50% {
+    width: 100%;
+  }
+  90%,
+  100% {
+    width: 0;
+  }
+}
     `
    
     

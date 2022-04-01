@@ -5,7 +5,7 @@ class Prehome extends HTMLElement{
     connectedCallback(){
       this.render()
       const cs = state.getState()
-      const button = document.querySelector(".button");
+      const button = document.querySelector("#button");
       button.addEventListener("click",()=>{
         const options = {
             enableHighAccuracy: true,
@@ -16,8 +16,8 @@ class Prehome extends HTMLElement{
     
             const lat = position.coords.latitude;
             const lng = position.coords.longitude;
-            cs.location.lat=lat
-            cs.location.lng=lng
+            cs.me.location.lat=lat
+            cs.me.location.lng=lng
             
             state.setState(cs)
         }
@@ -40,7 +40,7 @@ class Prehome extends HTMLElement{
       this.innerHTML=`
      <section class="section">
     <div class="div">
-    <button class="button">Dar Mi Ubicacion</button>
+    <button class="button" id="button">Dar Mi Ubicacion</button>
     </div>
      </section>
 

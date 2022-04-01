@@ -7,7 +7,7 @@ export function authMiddelwire(req,res,next){
       req._user=data
       next()
     }catch(error){
-      res.json({error:true})
+      res.json({error:"falta token"})
     }
     
   }

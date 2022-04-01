@@ -19,6 +19,8 @@ class Report extends HTMLElement{
   
         const reportarMascotas:HTMLElement = document.querySelector(".form")
         const marcarLugar:HTMLElement = document.querySelector(".marcarLugar")
+        const spinner:HTMLElement = document.querySelector(".spinner")
+
         marcarLugar.addEventListener("click",(e)=>{
           e.preventDefault()
         })
@@ -27,6 +29,8 @@ class Report extends HTMLElement{
    
           reportarMascotas.addEventListener("submit",(e)=>{
             e.preventDefault()
+            spinner.style.display="initial"
+
             const error:HTMLElement = document.querySelector(".error")
             error.style.display="none"
             const target:any = e.target
@@ -43,7 +47,7 @@ class Report extends HTMLElement{
                 if(cs.error.confirmarUbicacion==false){
                   const error:HTMLElement = document.querySelector(".error")
                   error.style.display="initial"
-                  
+                  spinner.style.display="none"
                   state.setErrorUbi()
 
                 }
@@ -62,6 +66,8 @@ class Report extends HTMLElement{
       this.innerHTML=`
       <script src="//api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js"></script>
       <script src="//unpkg.com/mapbox@1.0.0-beta9/dist/mapbox-sdk.min.js"></script>
+
+      <div class="spinner">Cargando..</div>
 
       <form class="form">
       <div class="form_container">
@@ -144,6 +150,45 @@ class Report extends HTMLElement{
     text-align:center;
     display:none;
   }
+
+
+  .spinner {
+    display:none;
+  box-shadow: 0 0 0 5px #4c7551, inset 0 0 0 1px#4c7551;
+  position: absolute;
+  height: 20px;
+  width: 240px;
+  border-radius: 2px;
+  overflow: hidden;
+  animation:  6s linear infinite;
+  margin:15px 0 0 75px;
+}
+.spinner:before {
+  display: block;
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background-color: #0cff774d;
+  animation: load 6s linear infinite;
+}
+
+@keyframes load {
+  0% {
+    width: 0;
+  }
+  40%,
+  50% {
+    width: 100%;
+  }
+  90%,
+  100% {
+    width: 0;
+  }
+}
+
+
     `
    
     
@@ -192,14 +237,7 @@ let lat;
     lat=latitude
     state.setReportLocation(lng,lat)
     
-    // fetch("/comercios-cerca-de?lat=" + lat +"&lng="+lng).then((res)=>{return res.json()}).then((results)=>{
-    //   for (const comercio of results) {
-    //     const {lat, lng} = comercio._geoloc
-    //     const marker = new mapboxgl.Marker()
-    //   .setLngLat([lng, lat])
-    //   .addTo(map);
-    //   }
-    //  })
+    
   });
 })();  
       

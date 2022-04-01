@@ -27,7 +27,8 @@ const formulario_register:HTMLElement  = document.querySelector(".formulario__re
 const contenedor_login_register:HTMLElement  = document.querySelector(".contenedor__login-register");
 const caja_trasera_login:HTMLElement  = document.querySelector(".caja__trasera-login");
 const caja_trasera_register:HTMLElement  = document.querySelector(".caja__trasera-register");
-const errorUsuario:HTMLElement= document.querySelector(".errorUsuarioExistente")
+const errorUsuario:HTMLElement= document.querySelector(".errorUsuarioExistente");
+const barraCargando:HTMLElement= document.querySelector(".spinner");
 
 
     //FUNCIONES
@@ -52,7 +53,6 @@ const errorUsuario:HTMLElement= document.querySelector(".errorUsuarioExistente")
     }
 
     function register(){
-        console.log(2412)
         if (window.innerWidth > 850){
             formulario_register.style.display = "block";
             contenedor_login_register.style.left = "410px";
@@ -73,6 +73,7 @@ const errorUsuario:HTMLElement= document.querySelector(".errorUsuarioExistente")
    const formRegistrarse = document.querySelector(".formulario__register")
    formRegistrarse.addEventListener("submit",(e)=>{
      e.preventDefault()
+     barraCargando.style.display="initial"
      const target:any = e.target
      const fullname = target.nombreCompleto.value
      const email = target.correoElectronico.value
@@ -87,6 +88,7 @@ const errorUsuario:HTMLElement= document.querySelector(".errorUsuarioExistente")
    
    formIniciarSecion.addEventListener("submit",(e)=>{
    e.preventDefault()
+   barraCargando.style.display="initial"
      const target:any = e.target
      const email = target.email.value
      const password = target.password.value
@@ -107,7 +109,8 @@ const errorUsuario:HTMLElement= document.querySelector(".errorUsuarioExistente")
     
    }
    userUbication(){
-    console.log(this.mode);
+    const barraCargando:HTMLElement= document.querySelector(".spinner");
+
     const cs = state.getState()
     const typePage = cs.me.page
     if(cs.dataRegistro.mode == "registrado"){
@@ -142,7 +145,8 @@ const errorUsuario:HTMLElement= document.querySelector(".errorUsuarioExistente")
                        })
                    })
                 }else{
-                    console.error("no")
+                    barraCargando.style.display="none"
+                    
                     const errorUsuario:HTMLElement= document.querySelector(".errorUsuarioExistente")
                     errorUsuario.style.display="initial"
                     state.setErrorUserCreado()
@@ -158,9 +162,9 @@ const errorUsuario:HTMLElement= document.querySelector(".errorUsuarioExistente")
                     state.meLocalstorage()
                     state.obtieneMiData(()=>{
                             const verificador = cs.error.usuario
-                            console.log(verificador);
                             
                             if(verificador=="error"){
+                                barraCargando.style.display="none"
                                 const error:HTMLElement= document.querySelector(".error")
                                 error.style.display="initial"
                                 state.setError()
@@ -231,9 +235,11 @@ const errorUsuario:HTMLElement= document.querySelector(".errorUsuarioExistente")
             <input type="text" placeholder="Correo Electronico" name="correoElectronico">
             <input type="password" placeholder="Contraseña" name="contraseña">
             <button>Regístrarse</button>
+            
         </form>
+       
         <h2 class="errorUsuarioExistente">Este usuario ya exite</h2>
-
+        <div class="spinner">Cargando..</div>
     </div>
 
 </div>
@@ -424,7 +430,57 @@ const errorUsuario:HTMLElement= document.querySelector(".errorUsuarioExistente")
         display: none;
     }
   }
-   
+
+
+      
+ 
+  .spinner {
+      display:none;
+    box-shadow: 0 0 0 5px #4c7551, inset 0 0 0 1px#4c7551;
+    position: absolute;
+    height: 20px;
+    width: 240px;
+    border-radius: 2px;
+    overflow: hidden;
+    animation:  6s linear infinite;
+    margin:400px 0 0 60px;
+  }
+  .spinner:before {
+    display: block;
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background-color: #0cff774d;
+    animation: load 6s linear infinite;
+  }
+  @keyframes rotate {
+    0%,
+    42% {
+      transform: rotate(0deg);
+    }
+    48%,
+    92% {
+      transform: rotate(180deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes load {
+    0% {
+      width: 0;
+    }
+    40%,
+    50% {
+      width: 100%;
+    }
+    90%,
+    100% {
+      width: 0;
+    }
+  }
   
 
    

@@ -1,14 +1,11 @@
-import { where } from "sequelize/types";
-import { cloudinary } from "../lib/cloudinary/connection"
-import { User,Auth,Report } from "../model";
-import * as crypto from"crypto"
+import { User,Auth } from "../model";
+// import * as crypto from"crypto"
 import * as jwt from"jsonwebtoken"
 import {getResult}from"../components/try/getResults"
-
-function getSHA256ofJSON (text:string){
-    return crypto.createHash('sha256').update(text).digest('hex')
-  }
-  const secretWord = 'lallalalalal12345ldf3'
+import {hasheadora}from"../components/hasheaContraseña/hasheadora"
+// function getSHA256ofJSON (text:string){
+//     return crypto.createHash('sha256').update(text).digest('hex')
+//   }
 
 export  function colocaDatos(data,tipo:string){
     if(tipo=="auth"){
@@ -39,7 +36,7 @@ if(email && password && fullname ){
     const [auth, authCreated] = await Auth.findOrCreate({
       where: {  user_id:user.get("id")},
       defaults: {
-        password:getSHA256ofJSON(password),
+        password:hasheadora(password),
         email,
         user_id:user.get("id")
       }
@@ -49,7 +46,9 @@ if(email && password && fullname ){
     })
     
     const [result,error]= await getResult(user)   
-    console.error(error)
+    if(error){
+      console.error(error)
+    }
  
     return  [result,error]
     
@@ -69,7 +68,7 @@ async function authToken(email:string,password:string){
     const auth = await Auth.findOne({
         where: {
           email,
-          password:getSHA256ofJSON(password)
+          password:hasheadora(password)
         },
        
         
@@ -101,15 +100,15 @@ export async function actualizarPerfilUsuario(body,id:number){
   const perfilActualizado=await User.update(respuesta,{where:{id}})
 
   if(body.email){
-    console.log(1,body);
     const perfilActualizadoAuth=await Auth.update({email:body.email},{where:{ id}})    
         
   const [result,error]= await getResult(perfilActualizadoAuth) 
-  console.error(error)
+  if(error){
+    console.error(error)
+  }
    
   return  [result,error]
   }else{
-    console.log("else");
     
     const [result,error]= await getResult(perfilActualizado)    
   return  [result,error]
